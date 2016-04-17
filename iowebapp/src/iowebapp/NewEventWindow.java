@@ -74,14 +74,14 @@ public class NewEventWindow extends Window {
 		// pole2 settings
 		pole2 = new DateField();
 		pole2.setResolution(Resolution.MINUTE);
-		pole2.setLocale(Locale.ENGLISH);
+		pole2.setLocale(new Locale("en", "GB"));
 		pole2.setWidth("186px");
 		main.addComponent(pole2, 1, 1);
 		main.setComponentAlignment(pole2, Alignment.MIDDLE_CENTER);
 		// pole3 settings
 		pole3 = new DateField();
 		pole3.setResolution(Resolution.MINUTE);
-		pole3.setLocale(Locale.ENGLISH);
+		pole3.setLocale(new Locale("en", "GB"));
 		pole3.setWidth("186px");
 		main.addComponent(pole3, 1, 2);
 		main.setComponentAlignment(pole3, Alignment.MIDDLE_CENTER);
