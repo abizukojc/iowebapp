@@ -20,38 +20,54 @@ public class IowebappUI extends UI {
 	public static class Servlet extends VaadinServlet {
 	}
 
+	/**
+	 * Tworzy GUI u¿ytkownika po otrzymaniu od niego requestu.
+	 *  (non-Javadoc)
+	 * @see com.vaadin.ui.UI#init(com.vaadin.server.VaadinRequest)
+	 */
 	@Override
 	protected void init(VaadinRequest request) {
 
-		Panel panel = new Panel("EVENT GENERATOR");
-		panel.setWidth("80%");
-		panel.setHeight("43%");
-		setContent(panel);
+		// mainPanel settings
+		Panel mainPanel = new Panel("EVENT GENERATOR");
+		mainPanel.setWidth("80%");
+		mainPanel.setHeight("43%");
+		setContent(mainPanel);
 
-		HorizontalLayout main = new HorizontalLayout();
-		main.setSizeFull();
-		panel.setContent(main);
+		// mainHLay settings
+		HorizontalLayout mainHLay = new HorizontalLayout();
+		mainHLay.setSizeFull();
+		mainPanel.setContent(mainHLay);
 
-		// Left panel settings
-		GridLayout leftPanel = new GridLayout(2, 3);
-		main.addComponent(leftPanel);
-		main.setComponentAlignment(leftPanel, Alignment.TOP_LEFT);
-		leftPanel.setSizeFull();
+		// buttonsGLay settings
+		GridLayout buttonsGLay = new GridLayout(2, 3);
+		mainHLay.addComponent(buttonsGLay);
+		mainHLay.setComponentAlignment(buttonsGLay, Alignment.TOP_LEFT);
+		buttonsGLay.setSizeFull();
 
-		// Right panel settings
-		Grid rightPanel = new Grid();
-		rightPanel.addColumn("", String.class);
-		rightPanel.addColumn("Date", String.class);
-		rightPanel.addColumn("Date end", String.class);
-		rightPanel.addColumn("Title", String.class);
-		rightPanel.addColumn("Options", String.class);
-		rightPanel.setSizeFull();
-		main.addComponent(rightPanel);
-		main.setExpandRatio(rightPanel, 2);
-		main.setExpandRatio(leftPanel, 1);
-		main.setComponentAlignment(rightPanel, Alignment.TOP_RIGHT);
+		// eventG settings
+		Grid eventG = new Grid();
+		eventG.addColumn("", String.class);
+		eventG.addColumn("Date start", String.class);
+		eventG.addColumn("Date end", String.class);
+		eventG.addColumn("Title", String.class);
+		eventG.addColumn("Options", String.class);
+		eventG.setSizeFull();
+		mainHLay.addComponent(eventG);
 
-		// New event click listener class
+		// expand and alignment settings of eventG and buttonsGLay
+		mainHLay.setExpandRatio(buttonsGLay, 1);
+		mainHLay.setExpandRatio(eventG, 2);
+		mainHLay.setComponentAlignment(eventG, Alignment.TOP_RIGHT);
+		mainHLay.setComponentAlignment(buttonsGLay, Alignment.TOP_LEFT);
+
+		/**
+		 * Klasa wewnêtrzna implementuj¹ca interfejs ClickListener dla przycisku newEventB.
+		 * Tworzy obiekt klasy NewEventWindow.
+		 * 
+		 * @author Krzysztof Perchlicki
+		 */
+		// newEventB click listener class
 		class NewEventListener implements ClickListener {
 
 			IowebappUI UI;
@@ -60,6 +76,12 @@ public class IowebappUI extends UI {
 				this.UI = UI;
 			}
 
+			/**
+			 * Nadpisana metoda buttonClick przyjmuj¹ca jako parametr obiekt klasy ClickEvent po kliknieciu 
+			 * tworzy obiekt klasy NevEventWindow i przekazuje do konstruktora obiekt klasy IowebappUI.
+			 * (non-Javadoc)
+			 * @see com.vaadin.ui.Button.ClickListener#buttonClick(com.vaadin.ui.Button.ClickEvent)
+			 */
 			@Override
 			public void buttonClick(ClickEvent event) {
 				addWindow(new NewEventWindow(UI));
@@ -68,67 +90,68 @@ public class IowebappUI extends UI {
 
 		}
 
-		// Button1 settings
-		Button button1 = new Button("NEW EVENT");
-		button1.setStyleName(ValoTheme.BUTTON_SMALL, true);
-		button1.setImmediate(true);
-		button1.setHeight(70, Unit.PERCENTAGE);
-		button1.setDescription("Click to create new event!");
-		button1.addClickListener(new NewEventListener(this));
+		// newEventB settings
+		Button newEventB = new Button("NEW EVENT");
+		newEventB.setStyleName(ValoTheme.BUTTON_SMALL, true);
+		newEventB.setImmediate(true);
+		newEventB.setHeight(70, Unit.PERCENTAGE);
+		newEventB.setDescription("Click to create new event!");
+		newEventB.addClickListener(new NewEventListener(this));
 
-		// Button2 settings
-		Button button2 = new Button("DELETE ALL");
-		button2.setStyleName(ValoTheme.BUTTON_SMALL, true);
-		button2.setImmediate(true);
-		button2.setDescription("Click to delete all your events!");
-		button2.setHeight(70, Unit.PERCENTAGE);
-		// Button3 settings
-		Button button3 = new Button("LOAD FROM PC");
-		button3.setStyleName(ValoTheme.BUTTON_SMALL, true);
-		button3.setDescription("Click to load your events from your computer!");
-		button3.setImmediate(true);
-		button3.setHeight(70, Unit.PERCENTAGE);
-		// Button4 settings
-		Button button4 = new Button("LOAD FROM WEB");
-		button4.setStyleName(ValoTheme.BUTTON_SMALL, true);
-		button4.setDescription("Click to load your events from a website!");
-		button4.setImmediate(true);
-		button4.setHeight(70, Unit.PERCENTAGE);
-		// Button5 settings
-		Button button5 = new Button("GENERATE ICAL");
-		button5.setStyleName(ValoTheme.BUTTON_SMALL, true);
-		button5.setDescription("Click to export your events to iCal format.");
-		button5.setImmediate(true);
-		button5.setHeight(70, Unit.PERCENTAGE);
-		// Button6 settings
-		Button button6 = new Button("GENERATE CSV");
-		button6.setStyleName(ValoTheme.BUTTON_SMALL, true);
-		button6.setDescription("Click to export your events to CSV format.");
-		button6.setImmediate(true);
-		button6.setHeight(70, Unit.PERCENTAGE);
+		// deleteAllB settings
+		Button deleteAllB = new Button("DELETE ALL");
+		deleteAllB.setStyleName(ValoTheme.BUTTON_SMALL, true);
+		deleteAllB.setImmediate(true);
+		deleteAllB.setDescription("Click to delete all your events!");
+		deleteAllB.setHeight(70, Unit.PERCENTAGE);
 
-		leftPanel.addComponent(button1, 0, 0);
-		button1.setWidth(80, Unit.PERCENTAGE);
-		leftPanel.setComponentAlignment(button1, Alignment.MIDDLE_CENTER);
-		leftPanel.addComponent(button2, 1, 0);
-		button2.setWidth(80, Unit.PERCENTAGE);
-		leftPanel.setComponentAlignment(button2, Alignment.MIDDLE_CENTER);
-		leftPanel.addComponent(button3, 0, 1);
-		button3.setWidth(80, Unit.PERCENTAGE);
-		leftPanel.setComponentAlignment(button3, Alignment.MIDDLE_CENTER);
-		leftPanel.addComponent(button4, 1, 1);
-		button4.setWidth(80, Unit.PERCENTAGE);
-		leftPanel.setComponentAlignment(button4, Alignment.MIDDLE_CENTER);
-		leftPanel.addComponent(button5, 0, 2);
-		button5.setWidth(80, Unit.PERCENTAGE);
-		leftPanel.setComponentAlignment(button5, Alignment.MIDDLE_CENTER);
-		leftPanel.addComponent(button6, 1, 2);
-		button6.setWidth(80, Unit.PERCENTAGE);
-		leftPanel.setComponentAlignment(button6, Alignment.MIDDLE_CENTER);
+		// loadPcB settings
+		Button loadPcB = new Button("LOAD FROM PC");
+		loadPcB.setStyleName(ValoTheme.BUTTON_SMALL, true);
+		loadPcB.setDescription("Click to load your events from your computer!");
+		loadPcB.setImmediate(true);
+		loadPcB.setHeight(70, Unit.PERCENTAGE);
 
-		main.setComponentAlignment(leftPanel, Alignment.TOP_LEFT);
-		main.setExpandRatio(leftPanel, 1);
-		main.setExpandRatio(rightPanel, 2);
+		// loadWebB settings
+		Button loadWebB = new Button("LOAD FROM WEB");
+		loadWebB.setStyleName(ValoTheme.BUTTON_SMALL, true);
+		loadWebB.setDescription("Click to load your events from a website!");
+		loadWebB.setImmediate(true);
+		loadWebB.setHeight(70, Unit.PERCENTAGE);
+
+		// genIcalB settings
+		Button genIcalB = new Button("GENERATE ICAL");
+		genIcalB.setStyleName(ValoTheme.BUTTON_SMALL, true);
+		genIcalB.setDescription("Click to export your events to iCal format.");
+		genIcalB.setImmediate(true);
+		genIcalB.setHeight(70, Unit.PERCENTAGE);
+
+		// genCsvB settings
+		Button genCsvB = new Button("GENERATE CSV");
+		genCsvB.setStyleName(ValoTheme.BUTTON_SMALL, true);
+		genCsvB.setDescription("Click to export your events to CSV format.");
+		genCsvB.setImmediate(true);
+		genCsvB.setHeight(70, Unit.PERCENTAGE);
+
+		// adding buttons to buttonsGLay
+		buttonsGLay.addComponent(newEventB, 0, 0);
+		newEventB.setWidth(80, Unit.PERCENTAGE);
+		buttonsGLay.setComponentAlignment(newEventB, Alignment.MIDDLE_CENTER);
+		buttonsGLay.addComponent(deleteAllB, 1, 0);
+		deleteAllB.setWidth(80, Unit.PERCENTAGE);
+		buttonsGLay.setComponentAlignment(deleteAllB, Alignment.MIDDLE_CENTER);
+		buttonsGLay.addComponent(loadPcB, 0, 1);
+		loadPcB.setWidth(80, Unit.PERCENTAGE);
+		buttonsGLay.setComponentAlignment(loadPcB, Alignment.MIDDLE_CENTER);
+		buttonsGLay.addComponent(loadWebB, 1, 1);
+		loadWebB.setWidth(80, Unit.PERCENTAGE);
+		buttonsGLay.setComponentAlignment(loadWebB, Alignment.MIDDLE_CENTER);
+		buttonsGLay.addComponent(genIcalB, 0, 2);
+		genIcalB.setWidth(80, Unit.PERCENTAGE);
+		buttonsGLay.setComponentAlignment(genIcalB, Alignment.MIDDLE_CENTER);
+		buttonsGLay.addComponent(genCsvB, 1, 2);
+		genCsvB.setWidth(80, Unit.PERCENTAGE);
+		buttonsGLay.setComponentAlignment(genCsvB, Alignment.MIDDLE_CENTER);
 
 	}
 }
