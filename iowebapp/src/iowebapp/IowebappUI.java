@@ -21,14 +21,60 @@ import com.vaadin.ui.themes.ValoTheme;
 @SuppressWarnings("serial")
 @Theme("iowebapp")
 public class IowebappUI extends UI {
-	
-	/* Wyjaœnienie nazwewnictwa:
-	 * Przyjêta konwencja jest taka, ¿e 1 cz³on oznacza zastosowanie/znaczenie
-	 * zmiennej a 2 cz³on typ obiektu.
-	 * GLay - Grid Layout | DF - DateField
-	 * HLay - Horizontal Layout | VLay - Vertical Layout
-	 * G - Grid | L - Label | TA - TextArea | TF - TextField 
+
+	/*
+	 * Wyjaœnienie nazwewnictwa: Przyjêta konwencja jest taka, ¿e 1 cz³on
+	 * oznacza zastosowanie/znaczenie zmiennej a 2 cz³on typ obiektu. GLay -
+	 * GridLayout | DF - DateField HLay - HorizontalLayout | VLay - VerticalLayout
+	 * G - Grid | L - Label | TA - TextArea | TF - TextField
 	 */
+
+	/**
+	 * G³ówny panel w którym znajduj¹ siê inne komponenty servletu. Wyœwietla
+	 * nag³ówek aplikacji "EVENT GENERATOR" i w przypadku gdy komponenty siê nie
+	 * mieszcz¹ tworzy paski scrollowania.
+	 */
+	private Panel mainPanel;
+	/**
+	 * Horizontal Layout na którym mieœci siê buttonsGLay (siatka przycisków) a
+	 * tak¿e eventG (tabela z wydarzeniami). S³u¿y do odpowiedniego
+	 * pozycjonowania tych komponentów.
+	 */
+	private HorizontalLayout mainHLay;
+	/**
+	 * Grid czyli tablica w której znajduj¹ siê nasze dodane wydarzenia.
+	 * Umo¿liwia tak¿e duplikacjê, edycjê i usuniêcie zdarzenia.
+	 */
+	private Grid eventG;
+	/**
+	 * Grid layout na którym znajduj¹ siê wszystkie przyciski. Layout s³u¿y do
+	 * ich pozycjonowania.
+	 */
+	private GridLayout buttonsGLay;
+	/**
+	 * Przycisk dziêki któremu mo¿na utworzyæ wydarzenie.
+	 */
+	private Button newEventB;
+	/**
+	 * Przycisk dziêki któremu mo¿na usun¹æ wszystkie wydarzenia.
+	 */
+	private Button deleteAllB;
+	/**
+	 * Przycisk dziêki któremu mo¿na wczytaæ wydarzenia z komputera.
+	 */
+	private Button loadPcB;
+	/**
+	 * Przycisk dziêki któremu mo¿na wczytaæ wydarzenia z internetu.
+	 */
+	private Button loadWebB;
+	/**
+	 * Przycisk dziêki któremu mo¿na eksportowaæ wydarzenia do pliku CSV.
+	 */
+	private Button genCsvB;
+	/**
+	 * Przycisk dziêki któremu mo¿na eksportowaæ wydarzenia do pliku iCAL.
+	 */
+	private Button genIcalB;
 
 	/**
 	 * Bezparametrowy konstruktor z nadklasy (klasa UI).
@@ -99,18 +145,18 @@ public class IowebappUI extends UI {
 	protected void init(final VaadinRequest request) {
 
 		// mainPanel settings
-		final Panel mainPanel = new Panel("EVENT GENERATOR");
+		mainPanel = new Panel("EVENT GENERATOR");
 		mainPanel.setWidth(80, Unit.PERCENTAGE);
 		mainPanel.setHeight(43, Unit.PERCENTAGE);
 		setContent(mainPanel);
 
 		// mainHLay settings
-		final HorizontalLayout mainHLay = new HorizontalLayout();
+		mainHLay = new HorizontalLayout();
 		mainHLay.setSizeFull();
 		mainPanel.setContent(mainHLay);
 
 		// eventG settings
-		final Grid eventG = new Grid();
+		eventG = new Grid();
 		eventG.addColumn("", String.class);
 		eventG.addColumn("Date start", String.class);
 		eventG.addColumn("Date end", String.class);
@@ -120,7 +166,7 @@ public class IowebappUI extends UI {
 		mainHLay.addComponent(eventG);
 
 		// buttonsGLay settings
-		final GridLayout buttonsGLay = new GridLayout(2, 3);
+		buttonsGLay = new GridLayout(2, 3);
 		mainHLay.addComponent(buttonsGLay);
 		buttonsGLay.setSizeFull();
 
@@ -131,7 +177,7 @@ public class IowebappUI extends UI {
 		mainHLay.setComponentAlignment(buttonsGLay, Alignment.TOP_LEFT);
 
 		// newEventB settings
-		final Button newEventB = new Button("NEW EVENT");
+		newEventB = new Button("NEW EVENT");
 		newEventB.setStyleName(ValoTheme.BUTTON_SMALL, true);
 		newEventB.setImmediate(true);
 		newEventB.setHeight(70, Unit.PERCENTAGE);
@@ -139,35 +185,35 @@ public class IowebappUI extends UI {
 		newEventB.addClickListener(new NewEventListener(this));
 
 		// deleteAllB settings
-		final Button deleteAllB = new Button("DELETE ALL");
+		deleteAllB = new Button("DELETE ALL");
 		deleteAllB.setStyleName(ValoTheme.BUTTON_SMALL, true);
 		deleteAllB.setImmediate(true);
 		deleteAllB.setDescription("Click to delete all your events!");
 		deleteAllB.setHeight(70, Unit.PERCENTAGE);
 
 		// loadPcB settings
-		final Button loadPcB = new Button("LOAD FROM PC");
+		loadPcB = new Button("LOAD FROM PC");
 		loadPcB.setStyleName(ValoTheme.BUTTON_SMALL, true);
 		loadPcB.setDescription("Click to load your events from your computer!");
 		loadPcB.setImmediate(true);
 		loadPcB.setHeight(70, Unit.PERCENTAGE);
 
 		// loadWebB settings
-		final Button loadWebB = new Button("LOAD FROM WEB");
+		loadWebB = new Button("LOAD FROM WEB");
 		loadWebB.setStyleName(ValoTheme.BUTTON_SMALL, true);
 		loadWebB.setDescription("Click to load your events from a website!");
 		loadWebB.setImmediate(true);
 		loadWebB.setHeight(70, Unit.PERCENTAGE);
 
 		// genIcalB settings
-		final Button genIcalB = new Button("GENERATE ICAL");
+		genIcalB = new Button("GENERATE ICAL");
 		genIcalB.setStyleName(ValoTheme.BUTTON_SMALL, true);
 		genIcalB.setDescription("Click to export your events to iCal format.");
 		genIcalB.setImmediate(true);
 		genIcalB.setHeight(70, Unit.PERCENTAGE);
 
 		// genCsvB settings
-		final Button genCsvB = new Button("GENERATE CSV");
+		genCsvB = new Button("GENERATE CSV");
 		genCsvB.setStyleName(ValoTheme.BUTTON_SMALL, true);
 		genCsvB.setDescription("Click to export your events to CSV format.");
 		genCsvB.setImmediate(true);
@@ -193,5 +239,196 @@ public class IowebappUI extends UI {
 		genCsvB.setWidth(80, Unit.PERCENTAGE);
 		buttonsGLay.setComponentAlignment(genCsvB, Alignment.MIDDLE_CENTER);
 
+	}
+
+	/**
+	 * Metoda, która dajê dostêp do pola mainPanel.
+	 * 
+	 * @return referencja do mainPanel
+	 */
+	public Panel getMainPanel() {
+		return mainPanel;
+	}
+
+	/**
+	 * Metoda, która pozwala zmieniæ mainPanel.
+	 * 
+	 * @param mainPanel
+	 *            obiekt klasy Panel (g³ówny panel).
+	 */
+	public void setMainPanel(final Panel mainPanel) {
+		this.mainPanel = mainPanel;
+	}
+
+	/**
+	 * Metoda, która dajê dostêp do pola mainHLay.
+	 * 
+	 * @return referencja do mainHLay
+	 */
+	public HorizontalLayout getMainHLay() {
+		return mainHLay;
+	}
+
+	/**
+	 * Metoda, która pozwala zmieniæ mainHLay.
+	 * 
+	 * @param mainHLay
+	 *            obiekt klasy HorizontalLayout (layout dla przycisków i
+	 *            tabeli).
+	 */
+	public void setMainHLay(final HorizontalLayout mainHLay) {
+		this.mainHLay = mainHLay;
+	}
+
+	/**
+	 * Metoda, która dajê dostêp do pola eventG.
+	 * 
+	 * @return referencja do eventG
+	 */
+	public Grid getEventG() {
+		return eventG;
+	}
+
+	/**
+	 * Metoda, która pozwala zmieniæ eventG.
+	 * 
+	 * @param eventG
+	 *            obiekt klasy Grid (tabela dla zdarzeñ).
+	 */
+	public void setEventG(final Grid eventG) {
+		this.eventG = eventG;
+	}
+
+	/**
+	 * Metoda, która dajê dostêp do pola buttonsGLay.
+	 * 
+	 * @return referencja do buttonsGLay
+	 */
+	public GridLayout getButtonsGLay() {
+		return buttonsGLay;
+	}
+
+	/**
+	 * Metoda, która pozwala zmieniæ buttonsGLay.
+	 * 
+	 * @param buttonsGLay
+	 *            obiekt klasy GridLayout (layout dla przycisków).
+	 */
+	public void setButtonsGLay(final GridLayout buttonsGLay) {
+		this.buttonsGLay = buttonsGLay;
+	}
+
+	/**
+	 * Metoda, która dajê dostêp do pola newEventB.
+	 * 
+	 * @return referencja do newEventB
+	 */
+	public Button getNewEventB() {
+		return newEventB;
+	}
+
+	/**
+	 * Metoda, która pozwala zmieniæ newEventB.
+	 * 
+	 * @param newEventB
+	 *            obiekt klasy Button (przycisk nowego zdarzenia).
+	 */
+	public void setNewEventB(final Button newEventB) {
+		this.newEventB = newEventB;
+	}
+
+	/**
+	 * Metoda, która dajê dostêp do pola deleteAllB.
+	 * 
+	 * @return referencja do deleteAllB
+	 */
+	public Button getDeleteAllB() {
+		return deleteAllB;
+	}
+
+	/**
+	 * Metoda, która pozwala zmieniæ deleteAllB.
+	 * 
+	 * @param deleteAllB
+	 *            obiekt klasy Button (przycisk usuwania zdarzeñ).
+	 */
+	public void setDeleteAllB(final Button deleteAllB) {
+		this.deleteAllB = deleteAllB;
+	}
+
+	/**
+	 * Metoda, która dajê dostêp do pola loadPcB.
+	 * 
+	 * @return referencja do loadPcB
+	 */
+	public Button getLoadPcB() {
+		return loadPcB;
+	}
+
+	/**
+	 * Metoda, która pozwala zmieniæ loadPcB
+	 * 
+	 * @param loadPcB
+	 *            obiekt klasy Button (przycisk wczytywania z PC).
+	 */
+	public void setLoadPcB(final Button loadPcB) {
+		this.loadPcB = loadPcB;
+	}
+
+	/**
+	 * Metoda, która dajê dostêp do pola loadWebB.
+	 * 
+	 * @return referencja do loadWebB
+	 */
+	public Button getLoadWebB() {
+		return loadWebB;
+	}
+
+	/**
+	 * Metoda, która pozwala zmieniæ loadWebB
+	 * 
+	 * @param loadWebB
+	 *            obiekt klasy Button (przycisk wczytywania ze stron).
+	 */
+	public void setLoadWebB(final Button loadWebB) {
+		this.loadWebB = loadWebB;
+	}
+
+	/**
+	 * Metoda, która dajê dostêp do pola genCsvB.
+	 * 
+	 * @return referencja do genCsvB
+	 */
+	public Button getGenCsvB() {
+		return genCsvB;
+	}
+
+	/**
+	 * Metoda, która pozwala zmieniæ genCsvB
+	 * 
+	 * @param genCsvB
+	 *            obiekt klasy Button (przycisk eksportu do CSV).
+	 */
+	public void setGenCsvB(final Button genCsvB) {
+		this.genCsvB = genCsvB;
+	}
+
+	/**
+	 * Metoda, która dajê dostêp do pola genIcalB.
+	 * 
+	 * @return referencja do genIcalB
+	 */
+	public Button getGenIcalB() {
+		return genIcalB;
+	}
+
+	/**
+	 * Metoda, która pozwala zmieniæ genIcalB
+	 * 
+	 * @param genIcalB
+	 *            obiekt klasy Button (przycisk eksportu do ICAL).
+	 */
+	public void setGenIcalB(final Button genIcalB) {
+		this.genIcalB = genIcalB;
 	}
 }

@@ -22,57 +22,70 @@ import com.vaadin.ui.Window;
 public class NewEventWindow extends Window {
 
 	private static final long serialVersionUID = 1L;
+
 	/**
 	 * Referencja do interfejsu u¿ytkownika (g³ównego servletu).
 	 */
 	private IowebappUI userInterface;
+
 	/**
 	 * Grid layout na którym znajduj¹ siê pola które nale¿y wype³niæ aby
 	 * utworzyæ wydarzenie.
 	 */
 	private GridLayout eventGLay;
+
 	/**
 	 * Przycisk który w przypadku gdy odpowiednie pola s¹ wype³nione wysy³a
 	 * informacje do g³ównego servletu (referencja UserInterface).
 	 */
 	private Button addB;
+
 	/**
-	 * Grid Layout który zawiera w sobie eventGLay i przycisk addB. S³u¿y do
+	 * Grid layout który zawiera w sobie eventGLay i przycisk addB. S³u¿y do
 	 * odpowiedniego pozycjonowania tych komponentów.
 	 */
 	private GridLayout mainGLay;
+
 	/**
 	 * Wyœwietla napis: "Title".
 	 */
 	private Label titleL;
+
 	/**
 	 * Wyœwietla napis: "Date start".
 	 */
 	private Label dateStartL;
+
 	/**
 	 * Wyœwietla napis: "Date end".
 	 */
 	private Label dateEndL;
+
 	/**
 	 * Wyœwietla napis: "Location".
 	 */
 	private Label locationL;
+
 	/**
 	 * Wyœwietla napis: "Description"
 	 */
 	private Label descriptionL;
+
 	/**
 	 * Pola w których podaje siê
 	 */
 	private TextField titleTF, locationTF;
+
 	/**
 	 * Pole w którym podajê siê opis wydarzenia.
 	 */
 	private TextArea descriptionTA;
+
 	/**
 	 * Data startu wydarzenia.
 	 */
 	private DateField dateStartDF;
+
 	/**
 	 * Data koñca wydarzenia.
 	 */
@@ -176,7 +189,7 @@ public class NewEventWindow extends Window {
 	}
 
 	/**
-	 * Metoda, która dajê dostêp do pola userInterface
+	 * Metoda, która dajê dostêp do pola userInterface.
 	 * 
 	 * @return referencja do userInterface
 	 */
@@ -196,7 +209,7 @@ public class NewEventWindow extends Window {
 	}
 
 	/**
-	 * Metoda, która dajê dostêp do pola eventGLay
+	 * Metoda, która dajê dostêp do pola eventGLay.
 	 * 
 	 * @return referencja do eventGLay
 	 */
@@ -205,61 +218,55 @@ public class NewEventWindow extends Window {
 	}
 
 	/**
-	 * Metoda, która pozwala zmieniæ eventGLay
+	 * Metoda, która pozwala zmieniæ eventGLay.
 	 * 
 	 * @param eventGLay
-	 *            referencja do obiektu klasy Grid Layout (layout zdarzeñ).
+	 *            obiekt klasy GridLayout (layout zdarzeñ).
 	 */
-
 	public void setEventGLay(final GridLayout eventGLay) {
 		this.eventGLay = eventGLay;
 	}
 
 	/**
-	 * Metoda, która dajê dostêp do pola addB
+	 * Metoda, która dajê dostêp do pola addB.
 	 * 
 	 * @return referencja do addB
 	 */
-
 	public Button getAddB() {
 		return addB;
 	}
 
 	/**
-	 * Metoda, która pozwala zmieniæ addB
+	 * Metoda, która pozwala zmieniæ addB.
 	 * 
 	 * @param addB
-	 *            referencja do obiektu klasy Button (przycisk dodawania
-	 *            zdarzenia).
+	 *            obiekt klasy Button (przycisk dodawania zdarzenia).
 	 */
-
 	public void setAddB(final Button addB) {
 		this.addB = addB;
 	}
 
 	/**
-	 * Metoda, która dajê dostêp do pola mainGLay
+	 * Metoda, która dajê dostêp do pola mainGLay.
 	 * 
 	 * @return referencja do mainGLay
 	 */
-
 	public GridLayout getMainGLay() {
 		return mainGLay;
 	}
 
 	/**
-	 * Metoda, która pozwala zmieniæ mainGLay
+	 * Metoda, która pozwala zmieniæ mainGLay.
 	 * 
 	 * @param mainGLay
-	 *            referencja do obiektu klasy Grid Layout (g³ówny layout).
+	 *            obiekt klasy GridLayout (g³ówny layout).
 	 */
-
 	public void setMainGLay(final GridLayout mainGLay) {
 		this.mainGLay = mainGLay;
 	}
 
 	/**
-	 * Metoda, która dajê dostêp do pola titleL
+	 * Metoda, która dajê dostêp do pola titleL.
 	 * 
 	 * @return referencja do titleL
 	 */
@@ -268,202 +275,182 @@ public class NewEventWindow extends Window {
 	}
 
 	/**
-	 * Metoda, która pozwala zmieniæ titleL
+	 * Metoda, która pozwala zmieniæ titleL.
 	 * 
 	 * @param titleL
-	 *            referencja do obiektu klasy Label (tytu³).
+	 *            obiekt klasy Label (tytu³).
 	 */
-
 	public void setTitleL(final Label titleL) {
 		this.titleL = titleL;
 	}
 
 	/**
-	 * Metoda, która dajê dostêp do pola dateStartL
+	 * Metoda, która dajê dostêp do pola dateStartL.
 	 * 
 	 * @return referencja do dateStartL
 	 */
-
 	public Label getDateStartL() {
 		return dateStartL;
 	}
 
 	/**
-	 * Metoda, która pozwala zmieniæ dateStartL
+	 * Metoda, która pozwala zmieniæ dateStartL.
 	 * 
 	 * @param dateStartL
-	 *            referencja do obiektu klasy Label (data startu).
+	 *            obiekt klasy Label (data startu).
 	 */
-
 	public void setDateStartL(final Label dateStartL) {
 		this.dateStartL = dateStartL;
 	}
 
 	/**
-	 * Metoda, która dajê dostêp do pola dateEndL
+	 * Metoda, która dajê dostêp do pola dateEndL.
 	 * 
 	 * @return referencja do dateEndL
 	 */
-
 	public Label getDateEndL() {
 		return dateEndL;
 	}
 
 	/**
-	 * Metoda, która pozwala zmieniæ dateEndL
+	 * Metoda, która pozwala zmieniæ dateEndL.
 	 * 
 	 * @param dateEndL
-	 *            referencja do obiektu klasy Label (data koñca).
+	 *            obiekt klasy Label (data koñca).
 	 */
-
 	public void setDateEndL(final Label dateEndL) {
 		this.dateEndL = dateEndL;
 	}
 
 	/**
-	 * Metoda, która dajê dostêp do pola locationL
+	 * Metoda, która dajê dostêp do pola locationL.
 	 * 
 	 * @return referencja do locationL
 	 */
-
 	public Label getLocationL() {
 		return locationL;
 	}
 
 	/**
-	 * Metoda, która pozwala zmieniæ locationL
+	 * Metoda, która pozwala zmieniæ locationL.
 	 * 
 	 * @param locationL
-	 *            referencja do obiektu klasy Label (lokalizacja zdarzenia).
+	 *            obiekt klasy Label (lokalizacja zdarzenia).
 	 */
-
 	public void setLocationL(final Label locationL) {
 		this.locationL = locationL;
 	}
 
 	/**
-	 * Metoda, która dajê dostêp do pola descriptionL
+	 * Metoda, która dajê dostêp do pola descriptionL.
 	 * 
 	 * @return referencja do descriptionL
 	 */
-
 	public Label getDescriptionL() {
 		return descriptionL;
 	}
 
 	/**
-	 * Metoda, która pozwala zmieniæ descriptionL
+	 * Metoda, która pozwala zmieniæ descriptionL.
 	 * 
 	 * @param descriptionL
-	 *            referencja do obiektu klasy Label (opis zdarzenia).
+	 *            obiekt klasy Label (opis zdarzenia).
 	 */
-
 	public void setDescriptionL(final Label descriptionL) {
 		this.descriptionL = descriptionL;
 	}
 
 	/**
-	 * Metoda, która dajê dostêp do pola titleTF
+	 * Metoda, która dajê dostêp do pola titleTF.
 	 * 
 	 * @return referencja do titleTF
 	 */
-
 	public TextField getTitleTF() {
 		return titleTF;
 	}
 
 	/**
-	 * Metoda, która pozwala zmieniæ titleTF
+	 * Metoda, która pozwala zmieniæ titleTF.
 	 * 
 	 * @param titleTF
-	 *            referencja do obiektu klasy TextField (pole tytu³u zdarzenia).
+	 *            obiekt klasy TextField (pole tytu³u zdarzenia).
 	 */
-
 	public void setTitleTF(final TextField titleTF) {
 		this.titleTF = titleTF;
 	}
 
 	/**
-	 * Metoda, która dajê dostêp do pola locationTF
+	 * Metoda, która dajê dostêp do pola locationTF.
 	 * 
 	 * @return referencja do locationTF
 	 */
-
 	public TextField getLocationTF() {
 		return locationTF;
 	}
 
 	/**
-	 * Metoda, która pozwala zmieniæ locationTF
+	 * Metoda, która pozwala zmieniæ locationTF.
 	 * 
 	 * @param locationTF
-	 *            referencja do obiektu klasy TextField (pole lokalizacji
-	 *            zdarzenia).
+	 *            obiekt klasy TextField (pole lokalizacji zdarzenia).
 	 */
-
 	public void setLocationTF(final TextField locationTF) {
 		this.locationTF = locationTF;
 	}
 
 	/**
-	 * Metoda, która dajê dostêp do pola descriptionTA
+	 * Metoda, która dajê dostêp do pola descriptionTA.
 	 * 
 	 * @return referencja do descriptionTA
 	 */
-
 	public TextArea getDescriptionTA() {
 		return descriptionTA;
 	}
 
 	/**
-	 * Metoda, która pozwala zmieniæ descriptionTA
+	 * Metoda, która pozwala zmieniæ descriptionTA.
 	 * 
 	 * @param descriptionTA
-	 *            referencja do obiektu klasy TextArea (pole opisu zdarzenia).
+	 *            obiekt klasy TextArea (pole opisu zdarzenia).
 	 */
-
 	public void setDescriptionTA(final TextArea descriptionTA) {
 		this.descriptionTA = descriptionTA;
 	}
 
 	/**
-	 * Metoda, która dajê dostêp do pola dateStartDF
+	 * Metoda, która dajê dostêp do pola dateStartDF.
 	 * 
 	 * @return referencja do dateStartDF
 	 */
-
 	public DateField getDateStartDF() {
 		return dateStartDF;
 	}
 
 	/**
-	 * Metoda, która pozwala zmieniæ dateStartDF
+	 * Metoda, która pozwala zmieniæ dateStartDF.
 	 * 
 	 * @param dateStartDF
-	 *            referencja do obiektu klasy DataField (data startu zdarzenia).
+	 *            obiekt klasy DataField (data startu zdarzenia).
 	 */
-
 	public void setDateStartDF(final DateField dateStartDF) {
 		this.dateStartDF = dateStartDF;
 	}
 
 	/**
-	 * Metoda, która dajê dostêp do pola dateEndDF
+	 * Metoda, która dajê dostêp do pola dateEndDF.
 	 * 
 	 * @return referencja do dateEndDF
 	 */
-
 	public DateField getDateEndDF() {
 		return dateEndDF;
 	}
 
 	/**
-	 * Metoda, która pozwala zmieniæ dateEndDF
+	 * Metoda, która pozwala zmieniæ dateEndDF.
 	 * 
 	 * @param dateEndDF
-	 *            referencja do obiektu klasy DataField (data koñca zdarzenia).
+	 *            obiekt klasy DataField (data koñca zdarzenia).
 	 */
-
 	public void setDateEndDF(final DateField dateEndDF) {
 		this.dateEndDF = dateEndDF;
 	}
