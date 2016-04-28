@@ -1,0 +1,10 @@
+@import "addons.scss";
+@import "iowebapp.scss";
+
+/* This file prefixes all rules with the theme name to avoid causing conflicts with other themes. */
+/* The actual styles should be defined in iowebapp.scss */
+.iowebapp {
+  @include addons;
+  @include iowebapp;
+  }
+
