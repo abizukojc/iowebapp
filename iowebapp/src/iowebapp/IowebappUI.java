@@ -155,6 +155,11 @@ public class IowebappUI extends UI {
 		mainHLay.setSizeFull();
 		mainPanel.setContent(mainHLay);
 
+		// buttonsGLay settings
+		buttonsGLay = new GridLayout(2, 3);
+		mainHLay.addComponent(buttonsGLay);
+		buttonsGLay.setSizeFull();
+		
 		// eventG settings
 		eventG = new Grid();
 		eventG.addColumn("", String.class);
@@ -164,11 +169,6 @@ public class IowebappUI extends UI {
 		eventG.addColumn("Options", String.class);
 		eventG.setSizeFull();
 		mainHLay.addComponent(eventG);
-
-		// buttonsGLay settings
-		buttonsGLay = new GridLayout(2, 3);
-		mainHLay.addComponent(buttonsGLay);
-		buttonsGLay.setSizeFull();
 
 		// expand and alignment settings of eventG and buttonsGLay
 		mainHLay.setExpandRatio(buttonsGLay, 1);
