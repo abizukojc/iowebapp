@@ -1,14 +1,21 @@
 package iowebapp;
 
+import java.util.Locale;
 import javax.servlet.annotation.WebServlet;
-
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
+import com.vaadin.data.util.BeanItemContainer;
+import com.vaadin.event.ItemClickEvent;
+import com.vaadin.event.ItemClickEvent.ItemClickListener;
+import com.vaadin.server.FontAwesome;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.*;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
+import com.vaadin.ui.Grid.DetailsGenerator;
+import com.vaadin.ui.Grid.RowReference;
+import com.vaadin.ui.renderers.HtmlRenderer;
 import com.vaadin.ui.themes.ValoTheme;
 
 /**
@@ -25,10 +32,11 @@ public class IowebappUI extends UI {
 	/*
 	 * Wyjaœnienie nazwewnictwa: Przyjêta konwencja jest taka, ¿e 1 cz³on
 	 * oznacza zastosowanie/znaczenie zmiennej a 2 cz³on typ obiektu. GLay -
-	 * GridLayout | DF - DateField HLay - HorizontalLayout | VLay - VerticalLayout
-	 * G - Grid | L - Label | TA - TextArea | TF - TextField
+	 * GridLayout | DF - DateField HLay - HorizontalLayout | VLay -
+	 * VerticalLayout G - Grid | L - Label | TA - TextArea | TF - TextField
 	 */
 
+	BeanItemContainer<CalendarEvent> eventContainer;
 	/**
 	 * G³ówny panel w którym znajduj¹ siê inne komponenty servletu. Wyœwietla
 	 * nag³ówek aplikacji "EVENT GENERATOR" i w przypadku gdy komponenty siê nie
@@ -130,7 +138,7 @@ public class IowebappUI extends UI {
 		 */
 		@Override
 		public void buttonClick(final ClickEvent event) {
-			addWindow(new NewEventWindow(userInterface));
+			addWindow(new NewEventWindow(eventContainer, eventG, null));
 
 		}
 
@@ -159,14 +167,94 @@ public class IowebappUI extends UI {
 		buttonsGLay = new GridLayout(2, 3);
 		mainHLay.addComponent(buttonsGLay);
 		buttonsGLay.setSizeFull();
-		
-		// eventG settings
+
+		eventContainer = new BeanItemContainer<>(CalendarEvent.class);
 		eventG = new Grid();
-		eventG.addColumn("", String.class);
-		eventG.addColumn("Date start", String.class);
-		eventG.addColumn("Date end", String.class);
-		eventG.addColumn("Title", String.class);
-		eventG.addColumn("Options", String.class);
+		eventG.setContainerDataSource(eventContainer);
+		eventG.setLocale(Locale.GERMAN);
+		DetailsGenerator detailsGenerator = new DetailsGenerator() {
+
+			@Override
+			public Component getDetails(RowReference rowReference) {
+				CalendarEvent eventItem = (CalendarEvent) rowReference.getItemId();
+				Panel panel = new Panel();
+				Label descriptionL = new Label(eventItem.getDescription());
+				descriptionL.setWidth(100, Unit.PIXELS);
+				eventG.setHeightByRows(eventContainer.getItemIds().size() + 4);
+				Button deleteB = new Button("Delete");
+				deleteB.setIcon(FontAwesome.CLOSE);
+				deleteB.addClickListener(new ClickListener() {
+
+					@Override
+					public void buttonClick(ClickEvent event) {
+						eventContainer.removeItem(rowReference.getItemId());
+
+					}
+				});
+				Button copyB = new Button("Copy");
+				copyB.setIcon(FontAwesome.CLONE);
+				copyB.addClickListener(new ClickListener() {
+
+					@Override
+					public void buttonClick(ClickEvent event) {
+						eventContainer.addBean(new CalendarEvent(eventItem.getTitle(), eventItem.getDateStart(),
+								eventItem.getDateEnd(), eventItem.getLocation(), eventItem.getDescription(),
+								eventItem.isAllDay()));
+
+					}
+				});
+				Button editB = new Button("Edit");
+				editB.setIcon(FontAwesome.EDIT);
+				editB.addClickListener(new ClickListener() {
+
+					@Override
+					public void buttonClick(ClickEvent event) {
+						addWindow(new NewEventWindow(eventContainer, eventG, eventItem));
+
+					}
+				});
+				HorizontalLayout horizontalLay = new HorizontalLayout(deleteB, copyB, editB);
+				horizontalLay.setWidth(350, Unit.PIXELS);
+				VerticalLayout verticalLay = new VerticalLayout(descriptionL, horizontalLay);
+				verticalLay.setStyleName("descMargins");
+				verticalLay.setMargin(true);
+				// gridLay.setSizeFull();
+				// gridLay.addComponent(descriptionL, 0, 0);
+				// gridLay.addComponent(horizontalLay, 1, 0);
+				// gridLay.setColumnExpandRatio(0, 1);
+				// gridLay.setColumnExpandRatio(1, 5);
+				// gridLay.setMargin(true);
+
+				// rowDetailsVLay.setSpacing(true);
+				// rowDetailsVLay.addComponent(descriptionL);
+				// rowDetailsVLay.addComponent(horizontalLay);
+				// rowDetailsVLay.setMargin(true);
+				// rowDetailsVLay.setSpacing(true);
+				return verticalLay;
+			}
+
+		};
+
+		eventG.setDetailsGenerator(detailsGenerator);
+		eventG.addItemClickListener(new ItemClickListener() {
+
+			@Override
+			public void itemClick(ItemClickEvent event) {
+				if (event.isDoubleClick()) {
+					Object itemId = event.getItemId();
+					eventG.setDetailsVisible(itemId, !eventG.isDetailsVisible(itemId));
+				}
+			}
+
+		});
+
+		eventG.setEditorEnabled(false);
+		eventG.getColumn("description").setHidden(true);
+		eventG.getColumn("allDay").setConverter(new BooleanToFontIconConverter());
+		eventG.getColumn("allDay").setRenderer(new HtmlRenderer());
+		eventG.getColumn("allDay").setMaximumWidth(65);
+		eventG.getColumn("allDay").setResizable(false);
+		eventG.setColumnOrder("title", "allDay", "dateStart", "dateEnd", "location");
 		eventG.setSizeFull();
 		mainHLay.addComponent(eventG);
 
@@ -190,6 +278,14 @@ public class IowebappUI extends UI {
 		deleteAllB.setImmediate(true);
 		deleteAllB.setDescription("Click to delete all your events!");
 		deleteAllB.setHeight(70, Unit.PERCENTAGE);
+		deleteAllB.addClickListener(new ClickListener() {
+
+			@Override
+			public void buttonClick(ClickEvent event) {
+				addWindow(new DeleteAllWindow(eventContainer));
+
+			}
+		});
 
 		// loadPcB settings
 		loadPcB = new Button("LOAD FROM PC");
