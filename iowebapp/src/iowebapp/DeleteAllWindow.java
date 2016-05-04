@@ -12,46 +12,55 @@ import com.vaadin.ui.Window;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 
+/**
+ * Okno które tworzy siê po klikniêciu na przycisk Delete all. S³u¿y do podjêcia
+ * decyzji czy usun¹æ wszystkie zdarzenia.
+ * 
+ * @author Krzysztof Perchlicki
+ */
 public class DeleteAllWindow extends Window {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private VerticalLayout mainVLay;
-	private GridLayout buttonsGLay;
-	private Label warningL;
-	private Button yesB;
-	private Button noB;
 
-	BeanItemContainer<CalendarEvent> eventContainer;
-
-	public DeleteAllWindow(BeanItemContainer<CalendarEvent> eventContainer) {
+	/**
+	 * Konstruktor przyjmuj¹cy referencjê do obiektu eventsContainer (tablica
+	 * wydarzeñ) i tworz¹cy ca³e okno do podejmowania decyzji.
+	 * 
+	 * @param eventsContainer
+	 */
+	@SuppressWarnings("serial")
+	public DeleteAllWindow(final BeanItemContainer<CalendarEvent> eventsContainer) {
+		// window settings
 		super();
 		final Toolkit size = Toolkit.getDefaultToolkit();
-
 		setPosition(2 * size.getScreenSize().width / 5, size.getScreenSize().height / 6);
-		this.eventContainer = eventContainer;
 		setWidth("330px");
 		setHeight("100px");
 		setClosable(false);
 		setResizable(false);
 		// mainVLay settings
+		VerticalLayout mainVLay;
 		mainVLay = new VerticalLayout();
 		mainVLay.setMargin(true);
 		mainVLay.setSizeFull();
 		setContent(mainVLay);
 		// warningL settings
+		Label warningL;
 		warningL = new Label("Are you sure you want to delete all events?");
 		mainVLay.setWidthUndefined();
 		mainVLay.addComponent(warningL);
 		mainVLay.setComponentAlignment(warningL, Alignment.TOP_CENTER);
 		// buttonsHLay settings
+		GridLayout buttonsGLay;
 		buttonsGLay = new GridLayout(2, 1);
 		buttonsGLay.setWidth(270, Unit.PIXELS);
 		mainVLay.addComponent(buttonsGLay);
 		mainVLay.setComponentAlignment(buttonsGLay, Alignment.TOP_CENTER);
 		// yesB settings
+		Button yesB;
 		yesB = new Button("Yes");
 		yesB.setIcon(FontAwesome.CHECK);
 		yesB.setImmediate(true);
@@ -59,13 +68,12 @@ public class DeleteAllWindow extends Window {
 		yesB.addClickListener(new ClickListener() {
 
 			/**
-			 * 
+			 * Klikniêcie powoduje, ¿e wszystkie wydarzenia zostaj¹ usuniête a
+			 * okno siê zamyka.
 			 */
-			private static final long serialVersionUID = 1L;
-
 			@Override
-			public void buttonClick(ClickEvent event) {
-				eventContainer.removeAllItems();
+			public void buttonClick(final ClickEvent event) {
+				eventsContainer.removeAllItems();
 				close();
 
 			}
@@ -75,65 +83,23 @@ public class DeleteAllWindow extends Window {
 		buttonsGLay.setComponentAlignment(yesB, Alignment.MIDDLE_LEFT);
 
 		// noB settings
+		Button noB;
 		noB = new Button("No");
 		noB.setIcon(FontAwesome.CLOSE);
 		noB.setImmediate(true);
 		noB.setWidthUndefined();
 		noB.addClickListener(new ClickListener() {
-			
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 1L;
 
+			/**
+			 * Klikniêcie powoduje, ¿e okno siê zamyka.
+			 */
 			@Override
-			public void buttonClick(ClickEvent event) {
+			public void buttonClick(final ClickEvent event) {
 				close();
-				
+
 			}
 		});
 		buttonsGLay.addComponent(noB, 1, 0);
 		buttonsGLay.setComponentAlignment(noB, Alignment.MIDDLE_RIGHT);
 	}
-
-	public VerticalLayout getMainVLay() {
-		return mainVLay;
-	}
-
-	public void setMainVLay(VerticalLayout mainVLay) {
-		this.mainVLay = mainVLay;
-	}
-
-	public GridLayout getButtonsHLay() {
-		return buttonsGLay;
-	}
-
-	public void setButtonsHLay(GridLayout buttonsHLay) {
-		this.buttonsGLay = buttonsHLay;
-	}
-
-	public Label getWarningL() {
-		return warningL;
-	}
-
-	public void setWarningL(Label warningL) {
-		this.warningL = warningL;
-	}
-
-	public Button getYesB() {
-		return yesB;
-	}
-
-	public void setYesB(Button yesB) {
-		this.yesB = yesB;
-	}
-
-	public Button getNoB() {
-		return noB;
-	}
-
-	public void setNoB(Button noB) {
-		this.noB = noB;
-	}
-
 }

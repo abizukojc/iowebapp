@@ -31,46 +31,45 @@
 
 @mixin iowebapp {
 @include valo;
+	 
+  // Insert your own theme rules here
 	
 	.mymargins.v-margin-left{
-	padding-left:   21px;}
+		padding-left:   21px;
+	}
 	
 	.descMargins.v-margin-left{
-	padding-left: 8px;
+		padding-left: 8px;
 	}
 	.descMargins.v-margin-right{
-	padding-right: 8px;
+		padding-right: 8px;
 	}
 	.descMargins.v-margin-top{
-	padding-top: 8px;
+		padding-top: 8px;
 	}
 	.descMargins.v-margin-bottom{
-	padding-bottom: 8px;
+		padding-bottom: 8px;
 	}
-	
-	
+
 	.v-grid-cell{
-	padding-left: 5px;
-	padding-right: 5px;
-	text-align: center;
+		padding-left: 5px;
+		padding-right: 5px;
+		text-align: center;
 	}
 	
 	.v-grid-header th {
-  text-align: center;
-}
-	
-	
+		text-align: center;
+	}
+		
 	.errorAddTF.v-textfield {
-	border-color: red;
-	box-shadow: none;
-	 }
+		border-color: red;
+		box-shadow: none;
+	}
 	 
-	 .errorAddDF.v-datefield {
-	 .v-textfield{
-	border-color: red;
-	box-shadow: none;
-	 }
-	 }
-	
-  // Insert your own theme rules here
+	.errorAddDF.v-datefield {
+		.v-textfield{
+			border-color: red;
+			box-shadow: none;
+	}}
+
 }
