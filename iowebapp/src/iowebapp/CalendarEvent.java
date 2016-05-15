@@ -21,6 +21,14 @@ public class CalendarEvent {
 	 */
 	private Date dateEnd;
 	/**
+	 * Data utworzenia wydarzenia.
+	 */
+	private Date dateCreated;
+	/**
+	 * Data modyfikacji wydarzenia.
+	 */
+	private Date dateModified;
+	/**
 	 * Miejsce, w którym zajdzie wydarzenie.
 	 */
 	private String location;
@@ -41,12 +49,14 @@ public class CalendarEvent {
 	 * @param description
 	 * @param allDay
 	 */
-	public CalendarEvent(final String title, final Date dateStart, final Date dateEnd, final String location,
-			final String description, final boolean allDay) {
+	public CalendarEvent(final String title, final Date dateStart, final Date dateEnd, final Date dateCreated,
+			final Date dateModified, final String location, final String description, final boolean allDay) {
 		super();
 		this.title = title;
 		this.dateStart = dateStart;
 		this.dateEnd = dateEnd;
+		this.dateCreated = dateCreated;
+		this.dateModified = dateModified;
 		this.location = location;
 		this.description = description;
 		this.allDay = allDay;
@@ -107,6 +117,44 @@ public class CalendarEvent {
 	 */
 	public void setDateEnd(final Date dateEnd) {
 		this.dateEnd = dateEnd;
+	}
+
+	/**
+	 * Metoda, która dajê dostêp do pola dateCreated.
+	 * 
+	 * @return referencja do dateCreated.
+	 */
+	public Date getDateCreated() {
+		return dateCreated;
+	}
+
+	/**
+	 * Metoda, która pozwala zmieniæ dateCreated.
+	 * 
+	 * @param dateCreated
+	 *            obiekt klasy Date (data utworzenia wydarzenia).
+	 */
+	public void setDateCreated(final Date dateCreated) {
+		this.dateCreated = dateCreated;
+	}
+
+	/**
+	 * Metoda, która dajê dostêp do pola dateModified.
+	 * 
+	 * @return referencja do dateModified.
+	 */
+	public Date getDateModified() {
+		return dateModified;
+	}
+
+	/**
+	 * Metoda, która pozwala zmieniæ dateModified.
+	 * 
+	 * @param dateModified
+	 *            obiekt klasy Date (data modyfikacji wydarzenia).
+	 */
+	public void setDateModified(final Date dateModified) {
+		this.dateModified = dateModified;
 	}
 
 	/**

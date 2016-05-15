@@ -42,7 +42,7 @@ public class NewEventWindow extends Window {
 	 * @param eventG
 	 * @param ref
 	 */
-	@SuppressWarnings("serial")
+	@SuppressWarnings({ "serial", "deprecation" })
 	NewEventWindow(final BeanItemContainer<CalendarEvent> eventsContainer, final Grid eventG, final CalendarEvent ref) {
 		super("New Event");
 
@@ -230,6 +230,8 @@ public class NewEventWindow extends Window {
 				dateStartD = dateStartDF.getValue();
 				dateEndD = dateEndDF.getValue();
 				titleS = titleTF.getValue();
+				Date dateCreated;
+				Date dateModified;
 				boolean errorCondition;
 				titleTF.setComponentError(null);
 				dateStartDF.setComponentError(null);
@@ -249,11 +251,13 @@ public class NewEventWindow extends Window {
 				if (dateStartD != null && dateEndD != null && dateStartD.after(dateEndD)) {
 					dateEndDF.setComponentError(new UserError("End date must be later than start date"));
 				}
+				dateModified = new Date();
 				if (!errorCondition) {
 					if (ref == null) {
-						eventsContainer.addBean(
-								new CalendarEvent(titleTF.getValue(), dateStartDF.getValue(), dateEndDF.getValue(),
-										locationTF.getValue(), descriptionTA.getValue(), allDayCh.getValue()));
+						dateCreated = new Date(dateModified.getTime());
+						eventsContainer.addBean(new CalendarEvent(titleTF.getValue(), dateStartDF.getValue(),
+								dateEndDF.getValue(), dateCreated, dateModified, locationTF.getValue(),
+								descriptionTA.getValue(), allDayCh.getValue()));
 					} else {
 						ref.setTitle(titleTF.getValue());
 						ref.setDateStart(dateStartDF.getValue());
@@ -261,6 +265,7 @@ public class NewEventWindow extends Window {
 						ref.setLocation(locationTF.getValue());
 						ref.setDescription(descriptionTA.getValue());
 						ref.setAllDay(allDayCh.getValue());
+						ref.setDateModified(dateModified);
 						eventG.setDetailsVisible(ref, false);
 						eventG.setDetailsVisible(ref, true);
 						eventG.clearSortOrder();
