@@ -374,7 +374,6 @@ public class IowebappUI extends UI {
 		 */
 		@SuppressWarnings("deprecation")
 		String dateConvert(final Date date, final boolean checked) {
-			String dataIcal;
 			final int year = date.getYear() + 1900;
 			final int month = date.getMonth() + 1;
 			final int day = date.getDate();
@@ -382,10 +381,9 @@ public class IowebappUI extends UI {
 			final int minutes = date.getMinutes();
 			final int seconds = date.getSeconds();
 			if (!checked) {
-				dataIcal = String.format(":%d%02d%02dT%02d%02d%02d", year, month, day, hours, minutes, seconds);
+				return String.format(":%d%02d%02dT%02d%02d%02d", year, month, day, hours, minutes, seconds);
 			}
-			dataIcal = String.format(";VALUE=DATE:%d%02d%02d", year, month, day);
-			return dataIcal;
+			return String.format(";VALUE=DATE:%d%02d%02d", year, month, day);
 		}
 
 	}
