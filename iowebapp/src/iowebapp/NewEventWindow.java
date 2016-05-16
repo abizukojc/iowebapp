@@ -6,7 +6,9 @@ import java.util.Locale;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.data.util.BeanItemContainer;
+import com.vaadin.server.Page;
 import com.vaadin.server.UserError;
+import com.vaadin.shared.Position;
 import com.vaadin.shared.ui.MarginInfo;
 import com.vaadin.shared.ui.datefield.Resolution;
 import com.vaadin.ui.Alignment;
@@ -19,6 +21,7 @@ import com.vaadin.ui.Grid;
 import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.Notification;
 import com.vaadin.ui.TextArea;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.Window;
@@ -258,6 +261,10 @@ public class NewEventWindow extends Window {
 						eventsContainer.addBean(new CalendarEvent(titleTF.getValue(), dateStartDF.getValue(),
 								dateEndDF.getValue(), dateCreated, dateModified, locationTF.getValue(),
 								descriptionTA.getValue(), allDayCh.getValue()));
+						final Notification addSuccess = new Notification("Successfully added event!", Notification.Type.ASSISTIVE_NOTIFICATION);
+						addSuccess.setPosition(Position.TOP_CENTER);
+						addSuccess.setDelayMsec(1000);
+						addSuccess.show(Page.getCurrent());
 					} else {
 						ref.setTitle(titleTF.getValue());
 						ref.setDateStart(dateStartDF.getValue());
@@ -269,8 +276,17 @@ public class NewEventWindow extends Window {
 						eventG.setDetailsVisible(ref, false);
 						eventG.setDetailsVisible(ref, true);
 						eventG.clearSortOrder();
+						final Notification editSuccess = new Notification("Successfully edited event!", Notification.Type.ASSISTIVE_NOTIFICATION);
+						editSuccess.setPosition(Position.TOP_CENTER);
+						editSuccess.setDelayMsec(1000);
+						editSuccess.show(Page.getCurrent());
 					}
+					return;
 				}
+				final Notification addError = new Notification("Can't add event!", Notification.Type.ERROR_MESSAGE);
+				addError.setPosition(Position.TOP_CENTER);
+				addError.setDelayMsec(1000);
+				addError.show(Page.getCurrent());
 			}
 
 		});

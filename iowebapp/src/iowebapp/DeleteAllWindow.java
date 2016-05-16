@@ -3,10 +3,13 @@ package iowebapp;
 import java.awt.Toolkit;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.server.FontAwesome;
+import com.vaadin.server.Page;
+import com.vaadin.shared.Position;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.Notification;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 import com.vaadin.ui.Button.ClickEvent;
@@ -73,7 +76,11 @@ public class DeleteAllWindow extends Window {
 			 */
 			@Override
 			public void buttonClick(final ClickEvent event) {
+				final Notification deleteSuccess = new Notification("Successfully removed events!", Notification.Type.ASSISTIVE_NOTIFICATION);
+				deleteSuccess.setPosition(Position.TOP_CENTER);
+				deleteSuccess.setDelayMsec(1000);
 				eventsContainer.removeAllItems();
+				deleteSuccess.show(Page.getCurrent());
 				close();
 
 			}
