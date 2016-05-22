@@ -1,6 +1,9 @@
 package iowebapp;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -14,27 +17,16 @@ import org.jsoup.select.Elements;
 public class ParsUZ {
 	
 	private int[] dayIndex = new int[7];
-	private int indexA, indexB;
+	private int indexA, indexB, elementSize;
+	private List<CalendarEvent> events = new ArrayList<CalendarEvent>();
 	
 	public ParsUZ(String urlUZ) throws IOException
 	{
 		Document doc = Jsoup.connect(urlUZ).get();
 		Elements elements = doc.getElementsByTag("td");
-		
+		elementSize = elements.size();
 		dayIndex(elements, dayIndex);
-		
-		if(dayIndex[0]!=-1)
-		{
-			findIndex(dayIndex, 3);
-			CalendarEvent Monday[] = new CalendarEvent[(indexB-(indexA + 1))/8];
-			getDataFromUZ(Monday, dayIndex, elements, getIndexA(), getIndexB());
-			
-			System.out.println(Monday[1].getTitle());
-			System.out.println(Monday[1].getLocation());
-			System.out.println(Monday[1].getDescription());
-		}
-		
-		
+		saveAllData(dayIndex, elements);
 	}
 
 	public void dayIndex(Elements elements, int dayIndex[])
@@ -78,7 +70,7 @@ public class ParsUZ {
 		}
 	}
 	
-	public void getDataFromUZ(CalendarEvent day[], int dayIndex[], Elements elements, int a, int b)
+	public void getDataFromUZ(CalendarEvent day[], int dayIndex[], Elements elements, int a, int b, List events)
 	{
 		int counter=1;
 		int j=0;
@@ -88,8 +80,10 @@ public class ParsUZ {
 			if(counter==1)
 			{
 				day[j] = new CalendarEvent(null, null, null, null, null, "", "", false);
+				events.add(day[j]);
+				day[j].setDateCreated(new Date());
+				day[j].setDateModified(new Date());
 				Element e = elements.get(i);
-				//day[j].setDescription("Grupa: " + e.text() + ", ");
 				day[j].setDescription(day[j].getDescription() + "Grupa: " + e.text() + ", ");
 				
 			}
@@ -112,7 +106,6 @@ public class ParsUZ {
 			if(counter==5)
 			{
 				Element e = elements.get(i);
-				//day[j].setDescription("RZ: " + e.text());
 				day[j].setDescription(day[j].getDescription() + "RZ: " + e.text());
 			}
 			if(counter==6)
@@ -137,7 +130,7 @@ public class ParsUZ {
 		}
 	}
 	
-	public void findIndex(int dayIndex[], int index)
+	public void findIndex(int dayIndex[], int index, Elements elements)
 	{
 		int guard=0;
 		
@@ -154,7 +147,30 @@ public class ParsUZ {
 		if(guard==0)
 		{
 			setIndexA(dayIndex[index]);
-			setIndexB(dayIndex[6]);
+			setIndexB(getElementSize());
+		}
+	}
+	
+	public void showEvent(CalendarEvent event)
+	{
+			System.out.println(event.getTitle());
+			System.out.println(event.getLocation());
+			System.out.println(event.getDescription());
+			System.out.println("Data utworzenia: " + event.getDateCreated());
+			System.out.println("Data modyfikacji: " + event.getDateModified());
+			System.out.println();
+	}
+	
+	public void saveAllData(int dayIndex[], Elements elements)
+	{
+		for(int i=0; i<6; i++)
+		{
+			if(dayIndex[i]!=-1)
+			{
+				findIndex(dayIndex, i, elements);
+				CalendarEvent day[] = new CalendarEvent[(indexB-(indexA + 1))/8];
+				getDataFromUZ(day, dayIndex, elements, getIndexA(), getIndexB(), events);
+			}
 		}
 	}
 
@@ -172,5 +188,13 @@ public class ParsUZ {
 
 	public void setIndexB(int indexB) {
 		this.indexB = indexB;
+	}
+
+	public int getElementSize() {
+		return elementSize;
+	}
+
+	public List<CalendarEvent> getEvents() {
+		return events;
 	}	
 }
