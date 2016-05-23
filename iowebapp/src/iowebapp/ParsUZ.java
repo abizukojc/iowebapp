@@ -70,7 +70,7 @@ public class ParsUZ {
 		}
 	}
 	
-	public void getDataFromUZ(CalendarEvent day[], int dayIndex[], Elements elements, int a, int b, List events)
+	public void getDataFromUZ(CalendarEvent day[], int dayIndex[], Elements elements, int a, int b, List<CalendarEvent> events)
 	{
 		int counter=1;
 		int j=0;
@@ -90,13 +90,12 @@ public class ParsUZ {
 			if(counter==2)
 			{
 				Element e = elements.get(i);
-				//Date dataRoz = new Date
-				//day[j].setDateStart(dataRoz);
+				day[j].setDateStart(new Date());
 			}
 			if(counter==3)
 			{
 				Element e = elements.get(i);
-				//day[j].setGodzZak(e.text());
+				day[j].setDateEnd(new Date());
 			}
 			if(counter==4)
 			{
@@ -156,6 +155,8 @@ public class ParsUZ {
 			System.out.println(event.getTitle());
 			System.out.println(event.getLocation());
 			System.out.println(event.getDescription());
+			System.out.println("Data rozpoczecia: " + event.getDateStart());
+			System.out.println("Data zakoñczenia: " + event.getDateEnd());
 			System.out.println("Data utworzenia: " + event.getDateCreated());
 			System.out.println("Data modyfikacji: " + event.getDateModified());
 			System.out.println();
@@ -163,7 +164,7 @@ public class ParsUZ {
 	
 	public void saveAllData(int dayIndex[], Elements elements)
 	{
-		for(int i=0; i<6; i++)
+		for(int i=0; i<7; i++)
 		{
 			if(dayIndex[i]!=-1)
 			{
