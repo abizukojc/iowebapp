@@ -277,6 +277,17 @@ public class IowebappUI extends UI {
 		loadWebB.setDescription("Click to load your events from a website!");
 		loadWebB.setImmediate(true);
 		loadWebB.setHeight(70, Unit.PERCENTAGE);
+		loadWebB.addClickListener(new ClickListener() {
+
+			/**
+			 * Metoda tworzy okno w którym u¿ytkownik podaje link url
+			 */
+			@Override
+			public void buttonClick(final ClickEvent event) {
+					addWindow(new LoadFromWebWindow(eventsContainer));
+			}
+		});
+		
 
 		// genIcalB settings
 		Button genIcalB;
