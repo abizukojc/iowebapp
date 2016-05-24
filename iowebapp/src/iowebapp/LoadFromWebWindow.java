@@ -2,17 +2,22 @@ package iowebapp;
 
 import java.awt.Toolkit;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JTextField;
 
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.server.FontAwesome;
+import com.vaadin.server.Page;
 import com.vaadin.server.Sizeable.Unit;
+import com.vaadin.shared.Position;
 import com.vaadin.shared.ui.MarginInfo;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.Notification;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
@@ -71,9 +76,18 @@ public class LoadFromWebWindow extends Window {
 			@Override
 			public void buttonClick(final ClickEvent event) 
 			{
-				String urlUZ = urlLabel.getValue();
+				String urlUZ = urlField.getValue();
+				
 				try {
 					ParsUZ parsUZ = new ParsUZ(urlUZ);
+					List<CalendarEvent> events = new ArrayList<CalendarEvent>();
+					events = parsUZ.getEvents();
+					
+					for(int i=0; i<events.size(); i++)
+					{
+						eventsContainer.addBean(events.get(i));
+					}
+					
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

@@ -9,6 +9,8 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import com.google.gwt.user.client.Event;
+
 /**
  * Klasa, która parsuje dane z planu UZ.
  * 
