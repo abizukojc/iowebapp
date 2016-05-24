@@ -33,3 +33,10 @@ dependencies {
     compile group: 'org.jsoup', name: 'jsoup', version: '1.9.1'
 	
 }
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.12'
+}
+
+task stage(){
+}
