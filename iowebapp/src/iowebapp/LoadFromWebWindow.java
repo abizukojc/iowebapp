@@ -78,19 +78,35 @@ public class LoadFromWebWindow extends Window {
 			{
 				String urlUZ = urlField.getValue();
 				
-				try {
-					ParsUZ parsUZ = new ParsUZ(urlUZ);
-					List<CalendarEvent> events = new ArrayList<CalendarEvent>();
-					events = parsUZ.getEvents();
-					
-					for(int i=0; i<events.size(); i++)
-					{
-						eventsContainer.addBean(events.get(i));
+				if(urlUZ.contains("plan.uz.zgora.pl/grupy_plan"))
+				{
+					try {
+						ParsUZ parsUZ = new ParsUZ(urlUZ);
+						List<CalendarEvent> events = new ArrayList<CalendarEvent>();
+						events = parsUZ.getEvents();
+						
+						for(int i=0; i<events.size(); i++)
+						{
+							eventsContainer.addBean(events.get(i));
+						}
+						
+						final Notification add = new Notification("Events were added succesfully!");
+						add.setPosition(Position.TOP_CENTER);
+						add.setDelayMsec(2000);
+						add.show(Page.getCurrent());
+						
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					}
-					
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+				}
+				else
+				{
+					final Notification add = new Notification("The link you've typed is incorrect!", Notification.Type.ERROR_MESSAGE);
+					add.setPosition(Position.TOP_CENTER);
+					add.setDelayMsec(2000);
+					add.show(Page.getCurrent());
+					urlField.clear();
 				}
 			}
 		});
