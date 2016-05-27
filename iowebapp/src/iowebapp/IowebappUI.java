@@ -94,6 +94,9 @@ public class IowebappUI extends UI {
 		// buttonsGLay settings
 		GridLayout buttonsGLay;
 		buttonsGLay = new GridLayout(2, 3);
+		buttonsGLay.setRowExpandRatio(0, 1);
+		buttonsGLay.setRowExpandRatio(1, 1);
+		buttonsGLay.setRowExpandRatio(2, 1);
 		mainHLay.addComponent(buttonsGLay);
 		buttonsGLay.setSizeFull();
 
@@ -116,7 +119,7 @@ public class IowebappUI extends UI {
 				final CalendarEvent eventItem = (CalendarEvent) rowReference.getItemId();
 				Label descriptionL;
 				descriptionL = new Label(eventItem.getDescription());
-				descriptionL.setWidth(100, Unit.PIXELS);
+				descriptionL.setWidth(600, Unit.PIXELS);
 				final Button deleteB = new Button("Delete");
 				deleteB.setIcon(FontAwesome.CLOSE);
 				deleteB.addClickListener(new ClickListener() {
@@ -126,7 +129,8 @@ public class IowebappUI extends UI {
 					 */
 					@Override
 					public void buttonClick(final ClickEvent event) {
-						final Notification editSuccess = new Notification("Successfully deleted event!", Notification.Type.ASSISTIVE_NOTIFICATION);
+						final Notification editSuccess = new Notification("Successfully deleted event!",
+								Notification.Type.ASSISTIVE_NOTIFICATION);
 						editSuccess.setPosition(Position.TOP_CENTER);
 						editSuccess.setDelayMsec(1000);
 						editSuccess.show(Page.getCurrent());
@@ -143,7 +147,8 @@ public class IowebappUI extends UI {
 					 */
 					@Override
 					public void buttonClick(final ClickEvent event) {
-						final Notification editSuccess = new Notification("Successfully copied event!", Notification.Type.ASSISTIVE_NOTIFICATION);
+						final Notification editSuccess = new Notification("Successfully copied event!",
+								Notification.Type.ASSISTIVE_NOTIFICATION);
 						editSuccess.setPosition(Position.TOP_CENTER);
 						editSuccess.setDelayMsec(1000);
 						editSuccess.show(Page.getCurrent());
@@ -251,7 +256,8 @@ public class IowebappUI extends UI {
 			 */
 			@Override
 			public void buttonClick(final ClickEvent event) {
-				final Notification deleteError = new Notification("There're no events!", Notification.Type.ERROR_MESSAGE);
+				final Notification deleteError = new Notification("There're no events!",
+						Notification.Type.ERROR_MESSAGE);
 				deleteError.setPosition(Position.TOP_CENTER);
 				deleteError.setDelayMsec(1000);
 				if (eventsContainer.size() >= 1) {
@@ -263,12 +269,26 @@ public class IowebappUI extends UI {
 		});
 
 		// loadPcB settings
-		Button loadPcB;
-		loadPcB = new Button("LOAD FROM PC");
+		// Button loadPcB;
+		// IcalUploader uploader = new IcalUploader(eventsContainer);
+		Button loadPcB = new Button("LOAD FROM PC");
+		// loadPcB.setButtonCaption("LOAD FROM PC");
+		// loadPcB.setReceiver(uploader);
+		// loadPcB.addSucceededListener(uploader);
 		loadPcB.setStyleName(ValoTheme.BUTTON_SMALL, true);
+		// loadPcB.addStyleName("small");
 		loadPcB.setDescription("Click to load your events from your computer!");
-		loadPcB.setImmediate(true);
 		loadPcB.setHeight(70, Unit.PERCENTAGE);
+		loadPcB.setImmediate(true);
+		loadPcB.addClickListener(new ClickListener() {
+
+			@Override
+			public void buttonClick(ClickEvent event) {
+				addWindow(new UploadWindow(eventsContainer));
+
+			}
+
+		});
 
 		// loadWebB settings
 		Button loadWebB;
@@ -284,10 +304,9 @@ public class IowebappUI extends UI {
 			 */
 			@Override
 			public void buttonClick(final ClickEvent event) {
-					addWindow(new LoadFromWebWindow(eventsContainer));
+				addWindow(new LoadFromWebWindow(eventsContainer));
 			}
 		});
-		
 
 		// genIcalB settings
 		Button genIcalB;

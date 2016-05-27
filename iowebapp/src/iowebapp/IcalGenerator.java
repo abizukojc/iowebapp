@@ -14,6 +14,7 @@ import com.vaadin.server.StreamResource.StreamSource;
  * @author Krzysztof Perchlicki
  *
  */
+@SuppressWarnings("serial")
 class IcalGenerator implements StreamSource {
 
 	/**

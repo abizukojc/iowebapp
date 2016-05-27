@@ -87,6 +87,11 @@ public class LoadFromWebWindow extends Window {
 						
 						for(int i=0; i<events.size(); i++)
 						{
+							
+							String temp=events.get(i).getDescription();
+							temp.replaceAll("\\s+","");
+							events.get(i).setDescription(temp);
+							
 							eventsContainer.addBean(events.get(i));
 						}
 						
