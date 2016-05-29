@@ -25,12 +25,18 @@ import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 
 /**
- * Okno które tworzy siê po klikniêciu na przycisk Load from web. 
+ * Klasa LoadFromWebWindow dziedziczaca po klasie Window.
+ * Wyœwietla okno w którym uzytkownik podaje link.
  * 
  * @author Micha³ Bielecki
  */
 public class LoadFromWebWindow extends Window {
 	
+	/**
+	 * Konstruktor tworzy okno w którym u¿ytkownik podaje link.
+	 * 
+	 * @param eventsContainer
+	 */
 	public LoadFromWebWindow(final BeanItemContainer<CalendarEvent> eventsContainer)
 	{
 		super("Load events from web");
@@ -56,7 +62,7 @@ public class LoadFromWebWindow extends Window {
 		buttonsGLay.addComponent(urlLabel, 0, 0);
 		buttonsGLay.setComponentAlignment(urlLabel, Alignment.MIDDLE_CENTER);
 		
-		// urlField settings
+		// urlField settings (pole do wpisania linku)
 		TextField urlField;
 		urlField = new TextField();
 		urlField.setWidth(250, Unit.PIXELS);
@@ -71,7 +77,7 @@ public class LoadFromWebWindow extends Window {
 		loadFromUZButton.addClickListener(new ClickListener() {
 
 			/**
-			 * Klikniecie w przycisk spowoduje dodanie wydarzen z planu uz
+			 * Klikniecie w przycisk spowoduje dodanie wydarzeñ z planu uz do tabeli
 			 */
 			@Override
 			public void buttonClick(final ClickEvent event) 

@@ -86,7 +86,7 @@ public class ParsUZ {
 				day[j].setDateCreated(new Date());
 				day[j].setDateModified(new Date());
 				Element e = elements.get(i);
-				day[j].setDescription(day[j].getDescription() + "Grupa: " + e.text() + ", ");
+				day[j].setDescription(day[j].getDescription() + "Grupa: " + e.text() + " ");
 				
 			}
 			if(counter==2)
@@ -107,12 +107,12 @@ public class ParsUZ {
 			if(counter==5)
 			{
 				Element e = elements.get(i);
-				day[j].setDescription(day[j].getDescription() + "RZ: " + e.text());
+				day[j].setDescription(day[j].getDescription() + "RZ: " + e.text()  + " ");
 			}
 			if(counter==6)
 			{
 				Element e = elements.get(i);
-				day[j].setDescription(day[j].getDescription() + ", Wyk³adowca: " + e.text());
+				day[j].setDescription(day[j].getDescription() + "Wyk³adowca: " + e.text());
 			}
 			if(counter==7)
 			{
