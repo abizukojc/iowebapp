@@ -7,25 +7,35 @@ import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.server.StreamResource.StreamSource;
 
 /**
- * Klasa która konwertuje dane z tabelki do formatu CSV
+ * Klasa, która konwertuje dane z tabeli do formatu CSV
  * 
  * @author Micha³ Bielecki
  *
  */
 public class CsvGenerator implements StreamSource {
 	
+	/** Tablica przechowuj¹ca referencje do wszystkich wydarzeñ */
 	private final BeanItemContainer<CalendarEvent> eventsContainer;
 	
+	/**
+	 * Konstruktor przyjmuj¹cy eventsContainer.
+	 * 
+	 * @param eventsContainer
+	 */
 	public CsvGenerator(final BeanItemContainer<CalendarEvent> eventsContainer)
 	{
 		this.eventsContainer = eventsContainer;
 	}
 	
+	/**
+	 * Metoda która konwertuje dane z tabeli do formatu CSV
+	 */
 	@Override
 	public InputStream getStream()
 	{
-		final StringBuilder csvFile = new StringBuilder(2000);
+		final StringBuilder csvFile = new StringBuilder(200);
 		
+		//header pliku CSV
 		csvFile.append("title");
 		csvFile.append(',');
 		csvFile.append("dateStart");
@@ -43,6 +53,7 @@ public class CsvGenerator implements StreamSource {
 		csvFile.append("allDay");
 		csvFile.append('\n');
 		
+		//zapisywanie danych z tabeli
 		for(int i=0; i<eventsContainer.size(); i++)
 		{
 			final CalendarEvent event = eventsContainer.getItem(eventsContainer.getIdByIndex(i)).getBean();
@@ -66,5 +77,4 @@ public class CsvGenerator implements StreamSource {
 		
 		return new ByteArrayInputStream(csvFile.toString().getBytes(StandardCharsets.UTF_8));
 	}
-
 }
