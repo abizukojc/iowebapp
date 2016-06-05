@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.util.Date;
+import java.util.Locale;
+
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.server.Page;
 import com.vaadin.shared.Position;
@@ -29,23 +31,39 @@ import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.HorizontalLayout;
 
+/**
+ * Okno zawiera w sobie pole tekstowe, w którym umieszczana jest nazwa wybranego
+ * pliku ics. Ma w sobie także przycisk otwierający okno w którym użytkownik
+ * wybiera plik ics, a także przycisk zatwierdzający import.
+ * 
+ * @author Krzysztof Perchlicki
+ */
+@SuppressWarnings("serial")
 public class UploadWindow extends Window {
 
 	/**
-	 * 
+	 * Referencja do obiektu typu BeanItemContainer<CalendarEvent> (tablica
+	 * zdarzeń).
 	 */
-	private static final long serialVersionUID = -8895860555262151677L;
-	public String path = null;
-	BeanItemContainer<CalendarEvent> eventsContainer;
+	public BeanItemContainer<CalendarEvent> eventsContainer;
+	/**
+	 * Ścieżka zapisu plików na serwer.
+	 */
+	public String path;
 
-	@SuppressWarnings("serial")
+	/**
+	 * Konstruktor przyjmujący referencję do obiektu eventsContainer (tablica
+	 * wydarzeń). Tworzy okno służące do importu wydarzeń.
+	 * 
+	 * @param eventsContainer
+	 */
 	public UploadWindow(final BeanItemContainer<CalendarEvent> eventsContainer) {
 		// window settings
 		super();
+
 		this.eventsContainer = eventsContainer;
 		final Toolkit size = Toolkit.getDefaultToolkit();
-		path = getClass().getResource("CalendarEvent.class").getPath();
-		path = path.substring(0, path.length() - 19);
+		final String tempPath = getClass().getResource("CalendarEvent.class").getPath();
 		setPosition(2 * size.getScreenSize().width / 5, size.getScreenSize().height / 6);
 		setWidth("330px");
 		setHeight("150px");
@@ -58,25 +76,31 @@ public class UploadWindow extends Window {
 		mainVLay.setMargin(false);
 		mainVLay.setSizeFull();
 		setContent(mainVLay);
-		HorizontalLayout topHLay = new HorizontalLayout();
+		final HorizontalLayout topHLay = new HorizontalLayout();
 		topHLay.setMargin(new MarginInfo(true, false, true, false));
 		topHLay.setSpacing(true);
-		TextField pathTF = new TextField();
+		final TextField pathTF = new TextField();
 		pathTF.setWidth(150, Unit.PIXELS);
 
-		Upload uploadButton = new Upload();
+		final Upload uploadButton = new Upload();
 		uploadButton.setButtonCaption("Browse...");
 		uploadButton.setReceiver(new Receiver() {
 
+			/**
+			 * Tworzy na serwerze kopie pliku pobranego od użytkownika, pozbywa
+			 * się niepotrzebnych plików z serwera.
+			 */
 			@Override
-			public OutputStream receiveUpload(String filename, String mimeType) {
-				FileOutputStream fos = null;
+			public OutputStream receiveUpload(final String filename, final String mimeType) {
+
 				try {
-					if (pathTF.getValue().equals("") == false) {
+					path = tempPath.substring(0, tempPath.length() - 19);
+					final String textFieldValue = pathTF.getValue();
+					if (!("".equals(textFieldValue))) {
 						new File(path + pathTF.getValue()).delete();
 					}
-					String extension = filename.substring(filename.length() - 4, filename.length());
-					if (!(extension.equals(".ics") == true || extension.equals(".ICS") == true)) {
+					final String extension = filename.substring(filename.length() - 4, filename.length());
+					if (!(".ics".equals(extension) || ".ICS".equals(extension))) {
 						final Notification badExtensionError = new Notification("You need to choose .ics file!",
 								Notification.Type.ERROR_MESSAGE);
 						badExtensionError.setPosition(Position.TOP_CENTER);
@@ -86,17 +110,16 @@ public class UploadWindow extends Window {
 						// uploadException so I return this.
 						return new ByteArrayOutputStream();
 					}
-					File file = new File(path + filename);
-					fos = new FileOutputStream(file);
-				} catch (final java.io.FileNotFoundException e) {
-					Notification openError = new Notification("Could not open file<br/>", e.getMessage(),
+					final File file = new File(path + filename);
+					return new FileOutputStream(file);
+				} catch (final FileNotFoundException e) {
+					final Notification openError = new Notification("Could not open file",
 							Notification.Type.ERROR_MESSAGE);
 					openError.setDelayMsec(2000);
 					openError.setPosition(Position.TOP_CENTER);
 					openError.show(Page.getCurrent());
-					return null;
 				}
-				return fos;
+				return null;
 			}
 
 		});
@@ -107,106 +130,166 @@ public class UploadWindow extends Window {
 			 * 
 			 */
 			private static final long serialVersionUID = 8342221784732468501L;
+			/**
+			 * Nazwa pliku.
+			 */
+			String filename;
+			/**
+			 * Rozszerzenie pliku.
+			 */
+			String extension;
 
+			/**
+			 * W przypadku sukcesu importu, metoda zmienia tekst wyświetlany w
+			 * TextField na nazwę wybranego przez użytkownika pliku.
+			 */
 			@Override
-			public void uploadSucceeded(SucceededEvent event) {
-				String filename = event.getFilename();
-				String extension = filename.substring(filename.length() - 4, filename.length());
-				if (extension.equals(".ics") == true || extension.equals(".ICS") == true) {
+			public void uploadSucceeded(final SucceededEvent event) {
+				filename = event.getFilename();
+				extension = filename.substring(filename.length() - 4, filename.length());
+				if (".ICS".equals(extension.toUpperCase(Locale.ENGLISH))) {
 					pathTF.setValue(event.getFilename());
 				}
 
 			}
 
 		});
-		Button addButton = new Button("Confirm Upload");
+		final Button addButton = new Button("Confirm Upload");
 		addButton.setImmediate(true);
 		addButton.setSizeUndefined();
-		addButton.addClickListener(new ClickListener() {
+		addButton.addClickListener(/**
+									 * @author Krzysztof
+									 *
+									 */
+				new ClickListener() {
+					/**
+					 * 
+					 */
+					private static final long serialVersionUID = -1846907558871330146L;
+					/**
+					 * BufferedReader służący do odczytu kolejnych linii.
+					 */
 
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = -1846907558871330146L;
+					BufferedReader fileReader;
+					/**
+					 * Zmienna przechowująca tymczasowo kolejną linie pliku.
+					 */
+					String line;
+					/**
+					 * Plik będący kopią wybranego przez użytkownika pliku i
+					 * mieszczący się na serwerze.
+					 */
+					File file;
+					/**
+					 * Nazwa wydarzenia.
+					 */
+					String titleS;
+					/**
+					 * Lokalizacja wydarzenia.
+					 */
+					String locationS;
+					/**
+					 * Opis wydarzenia.
+					 */
+					String descriptionS;
+					/**
+					 * Data początku wydarzenia.
+					 */
+					Date dateStartD;
+					/**
+					 * Data końca wydarzenia.
+					 */
+					Date dateEndD;
+					/**
+					 * Data stworzenia.
+					 */
+					Date dateCreatedD;
+					/**
+					 * Data modyfikacji.
+					 */
+					Date dateModifiedD;
 
-			@Override
-			public void buttonClick(ClickEvent event) {
-				try {
-					if (!pathTF.getValue().equals("")) {
-						File file = new File(path + pathTF.getValue());
-						BufferedReader fileReader = new BufferedReader(
-								new InputStreamReader(new FileInputStream(file), "UTF-8"));
-						String line = null;
-						String title = null;
-						String location = null;
-						String description = null;
-						Date dateStart = null;
-						Date dateEnd = null;
-						Date dateCreated = null;
-						Date dateModified = null;
-						boolean allDay = false;
-						while ((line = fileReader.readLine()) != null) {
-							if (line.contains("DTSTART")) {
-								dateStart = stringToDateConvert(line.substring("DTSTART".length()));
-								if (line.charAt("DTSTART".length()) == ';') {
-									allDay = true;
+					@Override
+					public void buttonClick(final ClickEvent event) {
+						int length = 0;
+						try {
+							// if ("".equals(textFieldValue)) {
+							file = new File(path + pathTF.getValue());
+							if (file.exists()) {
+								fileReader = new BufferedReader(
+										new InputStreamReader(new FileInputStream(file), "UTF-8"));
+								boolean allDay = false;
+								line = fileReader.readLine();
+								while (line != null) {
+									if (line.contains("DTSTART")) {
+										length = "DTSTART".length();
+										dateStartD = stringToDateConvert(line.substring(length));
+										if (";".equals(Character.toString(line.charAt(length)))) {
+											allDay = true;
+										}
+									}
+									if (line.contains("DTEND")) {
+
+										length = "DTEND".length();
+										dateEndD = stringToDateConvert(line.substring(length));
+									}
+									if (line.contains("CREATED")) {
+										length = "CREATED".length();
+										dateCreatedD = stringToDateConvert(line.substring(length));
+									}
+									if (line.contains("DESCRIPTION:")) {
+										length = "DESCRIPTION:".length();
+										descriptionS = line.substring(length);
+									}
+									if (line.contains("LAST-MODIFIED")) {
+										length = "LAST-MODIFIED".length();
+										dateModifiedD = stringToDateConvert(line.substring(length));
+									}
+									if (line.contains("LOCATION:")) {
+										length = "LOCATION:".length();
+										locationS = line.substring(length);
+									}
+									if (line.contains("SUMMARY:")) {
+										length = "SUMMARY:".length();
+										titleS = line.substring(length);
+									}
+									if (line.contains("END:VEVENT")) {
+										eventsContainer.addBean(new CalendarEvent(titleS, dateStartD, dateEndD,
+												dateCreatedD, dateModifiedD, locationS, descriptionS, allDay));
+										allDay = false;
+									}
+									line = fileReader.readLine();
 								}
-							}
-							if (line.contains("DTEND")) {
+								final Notification addSuccess = new Notification("Successfully imported iCal file!",
+										Notification.Type.ASSISTIVE_NOTIFICATION);
+								addSuccess.setPosition(Position.TOP_CENTER);
+								addSuccess.setDelayMsec(1000);
+								addSuccess.show(Page.getCurrent());
+								fileReader.close();
+								file.delete();
+								pathTF.setValue("");
 
-								dateEnd = stringToDateConvert(line.substring("DTEND".length()));
 							}
-							if (line.contains("CREATED")) {
-
-								dateCreated = stringToDateConvert(line.substring("CREATED".length()));
-							}
-							if (line.contains("DESCRIPTION:")) {
-								description = line.substring("DESCRIPTION:".length());
-							}
-							if (line.contains("LAST-MODIFIED")) {
-
-								dateModified = stringToDateConvert(line.substring("LAST-MODIFIED".length()));
-								continue;
-							}
-							if (line.contains("LOCATION:")) {
-								location = line.substring("LOCATION:".length());
-								continue;
-							}
-							if (line.contains("SUMMARY:")) {
-								title = line.substring("SUMMARY:".length());
-								continue;
-							}
-							if (line.contains("END:VEVENT")) {
-								eventsContainer.addBean(new CalendarEvent(title, dateStart, dateEnd, dateCreated,
-										dateModified, location, description, allDay));
-								continue;
-							}
+						} catch (FileNotFoundException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (IOException e) {
+							e.printStackTrace();
 						}
-						final Notification addSuccess = new Notification("Successfully imported iCal file!",
-								Notification.Type.ASSISTIVE_NOTIFICATION);
-						addSuccess.setPosition(Position.TOP_CENTER);
-						addSuccess.setDelayMsec(1000);
-						addSuccess.show(Page.getCurrent());
-						fileReader.close();
-						file.delete();
-						pathTF.setValue("");
 
 					}
-				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-
-			}
-		});
+				});
 
 		addCloseListener(new CloseListener() {
 
+			/**
+			 * W przypadku zamknięciu okna, zaimportowane na serwer pliki są
+			 * usuwane.
+			 */
 			@Override
-			public void windowClose(CloseEvent e) {
-				if (!pathTF.getValue().equals("")) {
+			public void windowClose(final CloseEvent event) {
+				final String textFieldValue = pathTF.getValue();
+				if ("".equals(textFieldValue)) {
 					new File(path + pathTF.getValue()).delete();
 				}
 
@@ -221,15 +304,21 @@ public class UploadWindow extends Window {
 		mainVLay.setComponentAlignment(addButton, Alignment.MIDDLE_CENTER);
 	}
 
+	/**
+	 * Konwertuje datę zapisaną w formacie ics na obiekt typu Date.
+	 * 
+	 * @param dateString
+	 * @return obiekt typu Data.
+	 */
 	@SuppressWarnings("deprecation")
-	public Date stringToDateConvert(String dateString) {
-		final int year;
-		final int month;
-		final int day;
-		final int hours;
-		final int minutes;
-		final int seconds;
-		if (dateString.charAt(0) == ':') {
+	public Date stringToDateConvert(final String dateString) {
+		int year;
+		int month;
+		int day;
+		int hours;
+		int minutes;
+		int seconds;
+		if (":".equals(Character.toString(dateString.charAt(0)))) {
 			year = Integer.parseInt(dateString.substring(1, 5)) - 1900;
 			month = Integer.parseInt(dateString.substring(5, 7));
 			day = Integer.parseInt(dateString.substring(7, 9));

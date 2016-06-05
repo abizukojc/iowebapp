@@ -25,7 +25,7 @@ import com.vaadin.ui.renderers.HtmlRenderer;
 import com.vaadin.ui.themes.ValoTheme;
 
 /**
- * G≥Ûwny servlet. Po otrzymaniu od uøytkownika requestu tworzy UI (User
+ * G≈Ç√≥wny servlet. Po otrzymaniu od u≈ºytkownika requestu tworzy UI (User
  * Interface).
  * 
  * @see com.vaadin.ui.UI#init(com.vaadin.server.VaadinRequest)
@@ -36,8 +36,8 @@ import com.vaadin.ui.themes.ValoTheme;
 public class IowebappUI extends UI {
 
 	/*
-	 * Wyjaúnienie nazwewnictwa: PrzyjÍta konwencja jest taka, øe 1 cz≥on
-	 * oznacza zastosowanie/znaczenie zmiennej a 2 cz≥on typ obiektu. GLay -
+	 * Wyja≈õnienie nazwewnictwa: Przyjƒôta konwencja jest taka, ≈ºe 1 cz≈Çon
+	 * oznacza zastosowanie/znaczenie zmiennej a 2 cz≈Çon typ obiektu. GLay -
 	 * GridLayout | DF - DateField HLay - HorizontalLayout | VLay -
 	 * VerticalLayout G - Grid | L - Label | TA - TextArea | TF - TextField
 	 */
@@ -50,11 +50,11 @@ public class IowebappUI extends UI {
 	}
 
 	/**
-	 * Konstruktor z nadklasy (klasa UI) przyjmujπcy jako parametr obiekt klasy
+	 * Konstruktor z nadklasy (klasa UI) przyjmujƒÖcy jako parametr obiekt klasy
 	 * Component.
 	 * 
 	 * @param content
-	 *            referencja do obiektu klasy Component (uøywany jako kontent
+	 *            referencja do obiektu klasy Component (u≈ºywany jako kontent
 	 *            UI).
 	 */
 	public IowebappUI(final Component content) {
@@ -71,7 +71,7 @@ public class IowebappUI extends UI {
 	}
 
 	/**
-	 * Tworzy UI (User Interface) uøytkownika po otrzymaniu od niego requestu.
+	 * Tworzy UI (User Interface) u≈ºytkownika po otrzymaniu od niego requestu.
 	 * 
 	 * @see com.vaadin.ui.UI#init(com.vaadin.server.VaadinRequest)
 	 */
@@ -111,8 +111,8 @@ public class IowebappUI extends UI {
 		eventG.setDetailsGenerator(new DetailsGenerator() {
 
 			/**
-			 * Metoda wyúwietla opis wydarzenia, a takøe przyciski s≥uøπce do
-			 * usiniÍcia, edycji i duplikowania wydarzenia.
+			 * Metoda wy≈õwietla opis wydarzenia, a tak≈ºe przyciski s≈Çu≈ºƒÖce do
+			 * usuniƒôcia, edycji i duplikowania wydarzenia.
 			 */
 			@Override
 			public Component getDetails(final RowReference rowReference) {
@@ -125,7 +125,7 @@ public class IowebappUI extends UI {
 				deleteB.addClickListener(new ClickListener() {
 
 					/**
-					 * Usuwa wydarzenie, pod ktÛrym klikamy przycisk "Delete".
+					 * Usuwa wydarzenie, pod kt√≥rym klikamy przycisk "Delete".
 					 */
 					@Override
 					public void buttonClick(final ClickEvent event) {
@@ -143,7 +143,7 @@ public class IowebappUI extends UI {
 				copyB.addClickListener(new ClickListener() {
 
 					/**
-					 * Duplikuje wydarzenie, pod ktÛrym klikamy przycisk "Copy".
+					 * Duplikuje wydarzenie, pod kt√≥rym klikamy przycisk "Copy".
 					 */
 					@Override
 					public void buttonClick(final ClickEvent event) {
@@ -163,7 +163,7 @@ public class IowebappUI extends UI {
 				editB.addClickListener(new ClickListener() {
 
 					/**
-					 * Daje moøliwoúÊ edycji wydarzenia, pod ktÛrym klikamy
+					 * Daje mo≈ºliwo≈õƒá edycji wydarzenia, pod kt√≥rym klikamy
 					 * przycisk "Edit".
 					 */
 					@Override
@@ -185,8 +185,8 @@ public class IowebappUI extends UI {
 		eventG.addItemClickListener(new ItemClickListener() {
 
 			/**
-			 * W przypadku gdy uøytkownik w wydarzenie kliknie dwa razy metoda
-			 * powoduje zmianÍ widocznoúci szczegÛ≥Ûw.
+			 * W przypadku gdy u≈ºytkownik w wydarzenie kliknie dwa razy metoda
+			 * powoduje zmianƒô widoczno≈õci szczegu≈Ç√≥w.
 			 */
 			@Override
 			public void itemClick(final ItemClickEvent event) {
@@ -230,7 +230,7 @@ public class IowebappUI extends UI {
 		newEventB.addClickListener(new ClickListener() {
 
 			/**
-			 * Metoda tworzy okno w ktÛrym uøytkownik wype≥nia pola aby utworzyÊ
+			 * Metoda tworzy okno w kt√≥rym u≈ºytkownik wype≈Çnia pola aby utworzyƒá
 			 * nowe wydarzenie (obiekt klasy NewEventWindow).
 			 */
 			@Override
@@ -250,8 +250,8 @@ public class IowebappUI extends UI {
 		deleteAllB.addClickListener(new ClickListener() {
 
 			/**
-			 * Metoda tworzy okno w ktÛrym uøytknownik podejmuje decyzjÍ czy na
-			 * pewno chce usunπÊ wszystkie wydarzenia (obiekt klasy
+			 * Metoda tworzy okno w kt√≥rym u`zytknownik podejmuje decyzjƒô czy na
+			 * pewno chce usunƒÖƒá wszystkie wydarzenia (obiekt klasy
 			 * DeleteAllWindow).
 			 */
 			@Override
@@ -260,7 +260,7 @@ public class IowebappUI extends UI {
 						Notification.Type.ERROR_MESSAGE);
 				deleteError.setPosition(Position.TOP_CENTER);
 				deleteError.setDelayMsec(1000);
-				if (eventsContainer.size() >= 1) {
+				if (eventsContainer.size() >= Integer.valueOf(1)) {
 					addWindow(new DeleteAllWindow(eventsContainer));
 					return;
 				}
@@ -268,15 +268,9 @@ public class IowebappUI extends UI {
 			}
 		});
 
-		// loadPcB settings
-		// Button loadPcB;
-		// IcalUploader uploader = new IcalUploader(eventsContainer);
-		Button loadPcB = new Button("LOAD FROM PC");
-		// loadPcB.setButtonCaption("LOAD FROM PC");
-		// loadPcB.setReceiver(uploader);
-		// loadPcB.addSucceededListener(uploader);
+
+		final Button loadPcB = new Button("LOAD FROM PC");
 		loadPcB.setStyleName(ValoTheme.BUTTON_SMALL, true);
-		// loadPcB.addStyleName("small");
 		loadPcB.setDescription("Click to load your events from your computer!");
 		loadPcB.setHeight(70, Unit.PERCENTAGE);
 		loadPcB.setImmediate(true);
@@ -300,7 +294,7 @@ public class IowebappUI extends UI {
 		loadWebB.addClickListener(new ClickListener() {
 
 			/**
-			 * Metoda tworzy okno w ktÛrym uøytkownik podaje link url
+			 * Metoda tworzy okno w kt√≥rym u≈ºytkownik podaje link url.
 			 */
 			@Override
 			public void buttonClick(final ClickEvent event) {

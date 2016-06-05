@@ -16,8 +16,8 @@ import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 
 /**
- * Okno które tworzy siê po klikniêciu na przycisk Delete all. S³u¿y do podjêcia
- * decyzji czy usun¹æ wszystkie zdarzenia.
+ * Okno ktÃ³re tworzy siÄ™ po klikniÄ™ciu na przycisk Delete all. SÅ‚uÅ¼y do podjÄ™cia
+ * decyzji czy usunÄ…Ä‡ wszystkie zdarzenia.
  * 
  * @author Krzysztof Perchlicki
  */
@@ -29,8 +29,8 @@ public class DeleteAllWindow extends Window {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Konstruktor przyjmuj¹cy referencjê do obiektu eventsContainer (tablica
-	 * wydarzeñ) i tworz¹cy ca³e okno do podejmowania decyzji.
+	 * Konstruktor przyjmujÄ…cy referencjÄ™ do obiektu eventsContainer (tablica
+	 * wydarzeÅ„) i tworzÄ…cy caÅ‚e okno do podejmowania decyzji.
 	 * 
 	 * @param eventsContainer
 	 */
@@ -71,8 +71,8 @@ public class DeleteAllWindow extends Window {
 		yesB.addClickListener(new ClickListener() {
 
 			/**
-			 * Klikniêcie powoduje, ¿e wszystkie wydarzenia zostaj¹ usuniête a
-			 * okno siê zamyka.
+			 * KlikniÄ™cie powoduje, Å¼e wszystkie wydarzenia zostajÄ… usuniÄ™te a
+			 * okno siÄ™ zamyka.
 			 */
 			@Override
 			public void buttonClick(final ClickEvent event) {
@@ -98,7 +98,7 @@ public class DeleteAllWindow extends Window {
 		noB.addClickListener(new ClickListener() {
 
 			/**
-			 * Klikniêcie powoduje, ¿e okno siê zamyka.
+			 * KlikniÄ™cie powoduje, Å¼e okno siÄ™ zamyka.
 			 */
 			@Override
 			public void buttonClick(final ClickEvent event) {

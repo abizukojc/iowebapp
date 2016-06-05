@@ -5,7 +5,7 @@ import com.vaadin.data.util.converter.Converter;
 import com.vaadin.server.FontAwesome;
 
 /**
- * Klasa która s³u¿y do kontwertowania typu boolean na podane w 
+ * Klasa ktÃ³ra sÅ‚uÅ¼y do kontwertowania typu boolean na podane w 
  * konstruktorze ikony ze zbioru FontAwesome.
  * 
  * @author Krzysztof Perchlicki
@@ -17,16 +17,16 @@ public class BooleanToFontIconConverter implements Converter<String, Boolean> {
 	 */
 	private static final long serialVersionUID = 1L;
 	/**
-	 * Ikona ze zbioru FontAwesome, u¿ywana gdy wartoœæ boolean jest true.
+	 * Ikona ze zbioru FontAwesome, uÅ¼ywana gdy wartoÅ›Ä‡ boolean jest true.
 	 */
 	private FontAwesome trueIcon;
 	/**
-	 * Ikona ze zbioru FontAwesome, u¿ywana gdy wartoœæ boolean jest false.
+	 * Ikona ze zbioru FontAwesome, uï¿½ywana gdy wartoÅ›Ä‡ boolean jest false.
 	 */
 	private FontAwesome falseIcon;
 
 	/**
-	 * Konstruktor przyjmuj¹cy dwie ikony ze zbioru FontAwesome.
+	 * Konstruktor przyjmujï¿½cy dwie ikony ze zbioru FontAwesome.
 	 * 
 	 * @param trueIcon
 	 * @param falseIcon
@@ -47,9 +47,9 @@ public class BooleanToFontIconConverter implements Converter<String, Boolean> {
         throw new ConversionException("Not supported");
     }
 
-    /** Metoda, która konwertuje typ boolean na kod html do ikon FontAwesome.
-     * W przypadku gdy jest wartoœæ true to jest to kod do trueIcon,
-     * a gdy jest to wartoœæ false jest to kod do falseIcon.
+    /** Metoda, ktÃ³ra konwertuje typ boolean na kod html do ikon FontAwesome.
+     * W przypadku gdy jest wartoÅ›Ä‡ true to jest to kod do trueIcon,
+     * a gdy jest to wartoÅ›Ä‡ false jest to kod do falseIcon.
      */
     @Override
     public String convertToPresentation(final Boolean value,
@@ -65,7 +65,7 @@ public class BooleanToFontIconConverter implements Converter<String, Boolean> {
     }
 
     /** 
-     * Metoda, która zwraca klasê która jest konwertowana (Boolean).
+     * Metoda, ktÃ³ra zwraca klasÄ™ ktÃ³ra jest konwertowana (Boolean).
      */
     @Override
     public Class<Boolean> getModelType() {
@@ -74,7 +74,7 @@ public class BooleanToFontIconConverter implements Converter<String, Boolean> {
 
     
     /** 
-     * Metoda, która zwraca klasê na któr¹ typ boolean jest konwertowany.
+     * Metoda, ktÃ³ra zwraca klasÄ™ na ktÃ³rÄ… typ boolean jest konwertowany.
      */
     @Override
     public Class<String> getPresentationType() {
@@ -82,7 +82,7 @@ public class BooleanToFontIconConverter implements Converter<String, Boolean> {
     }
 
 	/**
-	 * Metoda, która dajê dostêp do pola trueIcon.
+	 * Metoda, ktÃ³ra daje dostÄ™p do pola trueIcon.
 	 * 
 	 * @return referencja do trueIcon.
 	 */
@@ -91,7 +91,7 @@ public class BooleanToFontIconConverter implements Converter<String, Boolean> {
 	}
 
 	/**
-	 * Metoda, która pozwala zmieniæ trueIcon.
+	 * Metoda, ktÃ³ra pozwala zmieniÄ‡ trueIcon.
 	 * 
 	 * @param trueIcon
 	 *            obiekt klasy enum FontAwesome (ikona gdy true).
@@ -101,7 +101,7 @@ public class BooleanToFontIconConverter implements Converter<String, Boolean> {
 	}
 
 	/**
-	 * Metoda, która dajê dostêp do pola falseIcon.
+	 * Metoda, ktÃ³ra daje dostÄ™p do pola falseIcon.
 	 * 
 	 * @return referencja do falseIcon.
 	 */
@@ -110,7 +110,7 @@ public class BooleanToFontIconConverter implements Converter<String, Boolean> {
 	}
 
 	/**
-	 * Metoda, która pozwala zmieniæ falseIcon.
+	 * Metoda, ktÃ³ra pozwala zmieniÄ‡ falseIcon.
 	 * 
 	 * @param falseIcon
 	 *            obiekt klasy enum FontAwesome (ikona gdy false).
