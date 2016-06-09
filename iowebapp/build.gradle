@@ -1,12 +1,14 @@
 apply plugin: 'java'
 apply plugin: 'war'
 apply plugin: 'eclipse-wtp'
-apply plugin: 'heroku'
 
 webAppDirName = 'WebContent'
 
 repositories {
 	mavenCentral()
+	maven {
+        url "http://files.couchbase.com/maven2/"
+    }
 }
 
 sourceSets {
@@ -29,10 +31,11 @@ dependencies {
 	compile 'com.vaadin:vaadin-themes:7.6.4'
 	compile 'com.vaadin:vaadin-client-compiled:7.6.4'
 	compile 'com.vaadin:vaadin-client:7.6.4'
+	compile group: 'eu.hurion.vaadin.heroku', name: 'vaadin-for-heroku', version: '1.0'
 	compile 'javax.servlet:javax.servlet-api:3.1.0'
 	compile 'junit:junit:4.12'
     compile group: 'org.jsoup', name: 'jsoup', version: '1.9.1'
-	
+   
 }
 
 task wrapper(type: Wrapper) {
