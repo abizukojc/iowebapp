@@ -1,35 +1,20 @@
 package iowebapp;
 
+import com.vaadin.data.util.*;
+import com.vaadin.server.Page;
+import com.vaadin.shared.Position;
+import com.vaadin.shared.ui.*;
+import com.vaadin.ui.*;
+import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.Button.ClickListener;
+import com.vaadin.ui.Upload.*;
 import java.awt.Toolkit;
-import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import java.io.*;
 import java.util.Date;
 import java.util.Locale;
 
-import com.vaadin.data.util.BeanItemContainer;
-import com.vaadin.server.Page;
-import com.vaadin.shared.Position;
-import com.vaadin.shared.ui.MarginInfo;
-import com.vaadin.ui.Alignment;
-import com.vaadin.ui.Button;
-import com.vaadin.ui.Notification;
-import com.vaadin.ui.TextField;
-import com.vaadin.ui.Upload;
-import com.vaadin.ui.Upload.Receiver;
-import com.vaadin.ui.Upload.SucceededEvent;
-import com.vaadin.ui.Upload.SucceededListener;
-import com.vaadin.ui.VerticalLayout;
-import com.vaadin.ui.Window;
-import com.vaadin.ui.Button.ClickEvent;
-import com.vaadin.ui.Button.ClickListener;
-import com.vaadin.ui.HorizontalLayout;
 
 /**
  * Okno zawiera w sobie pole tekstowe, w którym umieszczana jest nazwa wybranego
@@ -50,6 +35,10 @@ public class UploadWindow extends Window {
 	 * Ścieżka zapisu plików na serwer.
 	 */
 	public String path;
+	/**
+	 * Logger używany do wyświetlania komunikatów.
+	 */
+	private static final Logger LOGGER = LoggerFactory.getLogger(UploadWindow.class);
 
 	/**
 	 * Konstruktor przyjmujący referencję do obiektu eventsContainer (tablica
@@ -209,11 +198,14 @@ public class UploadWindow extends Window {
 					 */
 					Date dateModifiedD;
 
+					/**
+					 * Kliknięcie powoduje rozpoczęcie parsowania wybranego
+					 * pliku iCal do wydarzeń (CalendarEvent).
+					 */
 					@Override
 					public void buttonClick(final ClickEvent event) {
 						int length = 0;
 						try {
-							// if ("".equals(textFieldValue)) {
 							file = new File(path + pathTF.getValue());
 							if (file.exists()) {
 								fileReader = new BufferedReader(
@@ -221,16 +213,15 @@ public class UploadWindow extends Window {
 								boolean allDay = false;
 								line = fileReader.readLine();
 								while (line != null) {
+									length = "DTEND".length();
 									if (line.contains("DTSTART")) {
 										length = "DTSTART".length();
 										dateStartD = stringToDateConvert(line.substring(length));
-										if (";".equals(Character.toString(line.charAt(length)))) {
-											allDay = true;
-										}
+									}
+									if (";".equals(Character.toString(line.charAt(length)))) {
+										allDay = true;
 									}
 									if (line.contains("DTEND")) {
-
-										length = "DTEND".length();
 										dateEndD = stringToDateConvert(line.substring(length));
 									}
 									if (line.contains("CREATED")) {
@@ -271,10 +262,9 @@ public class UploadWindow extends Window {
 
 							}
 						} catch (FileNotFoundException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
+							LOGGER.error("Can't open file. Check if exist.", e);
 						} catch (IOException e) {
-							e.printStackTrace();
+							LOGGER.error("An IOException error occured!", e);
 						}
 
 					}

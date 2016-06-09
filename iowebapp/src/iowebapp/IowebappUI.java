@@ -268,7 +268,6 @@ public class IowebappUI extends UI {
 			}
 		});
 
-
 		final Button loadPcB = new Button("LOAD FROM PC");
 		loadPcB.setStyleName(ValoTheme.BUTTON_SMALL, true);
 		loadPcB.setDescription("Click to load your events from your computer!");
@@ -276,8 +275,12 @@ public class IowebappUI extends UI {
 		loadPcB.setImmediate(true);
 		loadPcB.addClickListener(new ClickListener() {
 
+			/**
+			 * Kliknięcie na przycisk powoduje utworzenie okna UploadWindow,
+			 * które służy do uploadowania.
+			 */
 			@Override
-			public void buttonClick(ClickEvent event) {
+			public void buttonClick(final ClickEvent event) {
 				addWindow(new UploadWindow(eventsContainer));
 
 			}

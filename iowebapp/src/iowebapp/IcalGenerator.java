@@ -43,7 +43,7 @@ class IcalGenerator implements StreamSource {
 		final Date dateStamp = new Date();
 		icalFile.append("BEGIN:VCALENDAR\nPRODID:IOWEBAPP_PROJECT_TEAM");
 		for (int i = 0; i < eventsContainer.size(); i++) {
-			final CalendarEvent event = eventsContainer.getItem(eventsContainer.getIdByIndex(i)).getBean();
+			final CalendarEvent event = eventsContainer.getIdByIndex(i);
 			icalFile.append("\nBEGIN:VEVENT\nDTSTART");
 			icalFile.append(dateConvert(event.getDateStart(), event.isAllDay()));
 			icalFile.append("\nDTEND");
