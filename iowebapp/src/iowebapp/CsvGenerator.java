@@ -36,43 +36,73 @@ public class CsvGenerator implements StreamSource {
 		final StringBuilder csvFile = new StringBuilder(200);
 		
 		//header pliku CSV
-		csvFile.append("title");
-		csvFile.append(',');
-		csvFile.append("dateStart");
-		csvFile.append(',');
-		csvFile.append("dateEnd");
-		csvFile.append(',');
-		csvFile.append("dateCreated");
-		csvFile.append(',');
-		csvFile.append("dateModified");
-		csvFile.append(',');
-		csvFile.append("location");
-		csvFile.append(',');
-		csvFile.append("description");
-		csvFile.append(',');
-		csvFile.append("allDay");
-		csvFile.append('\n');
+		csvFile.append("title")
+		.append(',')
+		.append("dateStart")
+		.append(',')
+		.append("dateEnd")
+		.append(',')
+		.append("dateCreated")
+		.append(',')
+		.append("dateModified")
+		.append(',')
+		.append("location")
+		.append(',')
+		.append("description")
+		.append(',')
+		.append("allDay")
+		.append('\n');
+		//csvFile.append(',');
+		//csvFile.append("dateStart");
+		//csvFile.append(',');
+		//csvFile.append("dateEnd");
+		//csvFile.append(',');
+		//csvFile.append("dateCreated");
+		//csvFile.append(',');
+		//csvFile.append("dateModified");
+		//csvFile.append(',');
+		//csvFile.append("location");
+		//csvFile.append(',');
+		//csvFile.append("description");
+		//csvFile.append(',');
+		//csvFile.append("allDay");
+		//csvFile.append('\n');
 		
 		//zapisywanie danych z tabeli
 		for(int i=0; i<eventsContainer.size(); i++)
 		{
 			final CalendarEvent event = eventsContainer.getItem(eventsContainer.getIdByIndex(i)).getBean();
-			csvFile.append(event.getTitle());
-			csvFile.append(',');
-			csvFile.append(event.getDateStart());
-			csvFile.append(',');
-			csvFile.append(event.getDateEnd());
-			csvFile.append(',');
-			csvFile.append(event.getDateCreated());
-			csvFile.append(',');
-			csvFile.append(event.getDateModified());
-			csvFile.append(',');
-			csvFile.append(event.getLocation());
-			csvFile.append(',');
-			csvFile.append(event.getDescription());
-			csvFile.append(',');
-			csvFile.append(event.isAllDay());
-			csvFile.append('\n');
+			csvFile.append(event.getTitle())
+			.append(',')
+			.append(event.getDateStart())
+			.append(',')
+			.append(event.getDateEnd())
+			.append(',')
+			.append(event.getDateCreated())
+			.append(',')
+			.append(event.getDateModified())
+			.append(',')
+			.append(event.getLocation())
+			.append(',')
+			.append(event.getDescription())
+			.append(',')
+			.append(event.isAllDay())
+			.append('\n');
+			//csvFile.append(',');
+			//csvFile.append(event.getDateStart());
+			//csvFile.append(',');
+			//csvFile.append(event.getDateEnd());
+			//csvFile.append(',');
+			//csvFile.append(event.getDateCreated());
+			//csvFile.append(',');
+			//csvFile.append(event.getDateModified());
+			//csvFile.append(',');
+			//csvFile.append(event.getLocation());
+			//csvFile.append(',');
+			//csvFile.append(event.getDescription());
+			//csvFile.append(',');
+			//csvFile.append(event.isAllDay());
+			//csvFile.append('\n');
 		}
 		
 		return new ByteArrayInputStream(csvFile.toString().getBytes(StandardCharsets.UTF_8));
