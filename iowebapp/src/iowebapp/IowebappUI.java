@@ -323,6 +323,9 @@ public class IowebappUI extends UI {
 		genCsvB.setDescription("Click to export your events to CSV format.");
 		genCsvB.setImmediate(true);
 		genCsvB.setHeight(70, Unit.PERCENTAGE);
+		StreamResource csvFile = downloadCsvFile(eventsContainer);
+		FileDownloader csvDownloader = new FileDownloader(csvFile);
+		csvDownloader.extend(genCsvB);
 
 		// adding buttons to buttonsGLay
 		buttonsGLay.addComponent(newEventB, 0, 0);
@@ -348,6 +351,10 @@ public class IowebappUI extends UI {
 
 	private StreamResource createResource(final BeanItemContainer<CalendarEvent> eventsContainer) {
 		return new StreamResource(new IcalGenerator(eventsContainer), "plik.ICS");
+	}
+	
+	private StreamResource downloadCsvFile(final BeanItemContainer<CalendarEvent> eventsContainer) {
+		return new StreamResource(new CsvGenerator(eventsContainer), "data.CSV");
 	}
 
 }
