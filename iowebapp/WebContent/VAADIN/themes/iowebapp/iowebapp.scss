@@ -1,5 +1,8 @@
 // Global variable overrides. Must be declared before importing Valo.
 
+$v-font-family: "Source Sans Pro", sans-serif;
+$v-font-size: 17px;
+
 // Defines the plaintext font size, weight and family. Font size affects general component sizing.
 //$v-font-size: 16px;
 //$v-font-weight: 300;
@@ -33,7 +36,7 @@
 @include valo;
 	 
   // Insert your own theme rules here
-	
+		
 	.mymargins.v-margin-left{
 		padding-left:   21px;
 	}
@@ -71,5 +74,5 @@
 			border-color: red;
 			box-shadow: none;
 	}}
-
+	
 }
