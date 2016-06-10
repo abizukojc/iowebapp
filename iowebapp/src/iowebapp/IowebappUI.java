@@ -308,8 +308,8 @@ public class IowebappUI extends UI {
 		genCsvB.setImmediate(true);
 		genCsvB.setHeight(70, Unit.PERCENTAGE);
 		StreamResource csvFile = downloadCsvFile(eventsContainer);
-		FileDownloader test1 = new FileDownloader(csvFile);
-		test1.extend(genCsvB);
+		FileDownloader csvDownloader = new FileDownloader(csvFile);
+		csvDownloader.extend(genCsvB);
 
 		// adding buttons to buttonsGLay
 		buttonsGLay.addComponent(newEventB, 0, 0);
