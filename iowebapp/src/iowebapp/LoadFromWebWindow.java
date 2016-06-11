@@ -4,33 +4,32 @@ import java.awt.Toolkit;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.swing.JTextField;
-
 import com.vaadin.data.util.BeanItemContainer;
-import com.vaadin.server.FontAwesome;
 import com.vaadin.server.Page;
-import com.vaadin.server.Sizeable.Unit;
 import com.vaadin.shared.Position;
-import com.vaadin.shared.ui.MarginInfo;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.TextField;
-import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 
 /**
- * Okno które tworzy siê po klikniêciu na przycisk Load from web. 
+ * Klasa LoadFromWebWindow dziedziczaca po klasie Window.
+ * Wyœwietla okno w którym u¿ytkownik podaje link.
  * 
  * @author Micha³ Bielecki
  */
 public class LoadFromWebWindow extends Window {
 	
+	/**
+	 * Konstruktor tworzy okno w którym u¿ytkownik podaje link.
+	 * 
+	 * @param eventsContainer
+	 */
 	public LoadFromWebWindow(final BeanItemContainer<CalendarEvent> eventsContainer)
 	{
 		super("Load events from web");
@@ -56,7 +55,7 @@ public class LoadFromWebWindow extends Window {
 		buttonsGLay.addComponent(urlLabel, 0, 0);
 		buttonsGLay.setComponentAlignment(urlLabel, Alignment.MIDDLE_CENTER);
 		
-		// urlField settings
+		// urlField settings (pole do wpisania linku)
 		TextField urlField;
 		urlField = new TextField();
 		urlField.setWidth(250, Unit.PIXELS);
@@ -71,27 +70,22 @@ public class LoadFromWebWindow extends Window {
 		loadFromUZButton.addClickListener(new ClickListener() {
 
 			/**
-			 * Klikniecie w przycisk spowoduje dodanie wydarzen z planu uz
+			 * Klikniecie w przycisk spowoduje dodanie wydarzeñ z planu uz do tabeli
 			 */
 			@Override
 			public void buttonClick(final ClickEvent event) 
 			{
-				String urlUZ = urlField.getValue();
+				final String urlUZ = urlField.getValue();
 				
 				if(urlUZ.contains("plan.uz.zgora.pl/grupy_plan"))
 				{
 					try {
-						ParsUZ parsUZ = new ParsUZ(urlUZ);
+						final ParsUZ parsUZ = new ParsUZ(urlUZ);
 						List<CalendarEvent> events = new ArrayList<CalendarEvent>();
 						events = parsUZ.getEvents();
 						
 						for(int i=0; i<events.size(); i++)
 						{
-							
-							String temp=events.get(i).getDescription();
-							temp.replaceAll("\\s+","");
-							events.get(i).setDescription(temp);
-							
 							eventsContainer.addBean(events.get(i));
 						}
 						
