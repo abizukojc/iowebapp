@@ -3,7 +3,7 @@ package iowebapp;
 import java.util.Date;
 
 /**
- * Klasa, która reprezentuje wydarzenie u¿ywane w kalendarzu.
+ * Klasa, ktÃ³ra reprezentuje wydarzenie uÅ¼ywane w kalendarzu.
  * 
  * @author Krzysztof Perchlicki
  */
@@ -17,7 +17,7 @@ public class CalendarEvent {
 	 */
 	private Date dateStart;
 	/**
-	 * Data koñca wydarzenia.
+	 * Data koÅ„ca wydarzenia.
 	 */
 	private Date dateEnd;
 	/**
@@ -29,15 +29,15 @@ public class CalendarEvent {
 	 */
 	private Date dateModified;
 	/**
-	 * Miejsce, w którym zajdzie wydarzenie.
+	 * Miejsce, w ktÃ³rym zajdzie wydarzenie.
 	 */
 	private String location;
 	/**
-	 * Szczegó³y, opis wydarzenia.
+	 * SzczegÃ³Å‚y, opis wydarzenia.
 	 */
 	private String description;
 	/**
-	 * Pole, które daje informacje czy wydarzenie zachodzi przez ca³y dzieñ.
+	 * Pole, ktÃ³re daje informacje czy wydarzenie zachodzi przez caÅ‚y dzieÅ„.
 	 */
 	private boolean allDay;
 
@@ -63,7 +63,7 @@ public class CalendarEvent {
 	}
 
 	/**
-	 * Metoda, która dajê dostêp do pola title.
+	 * Metoda, ktÃ³ra daje dostÄ™p do pola title.
 	 * 
 	 * @return referencja do title.
 	 */
@@ -72,7 +72,7 @@ public class CalendarEvent {
 	}
 
 	/**
-	 * Metoda, która pozwala zmieniæ title.
+	 * Metoda, ktÃ³ra pozwala zmieniÄ‡ title.
 	 * 
 	 * @param title
 	 *            obiekt klasy String (nazwa wydarzenia).
@@ -82,7 +82,7 @@ public class CalendarEvent {
 	}
 
 	/**
-	 * Metoda, która dajê dostêp do pola dateStart.
+	 * Metoda, ktÃ³ra daje dostÄ™p do pola dateStart.
 	 * 
 	 * @return referencja do dateStart.
 	 */
@@ -91,7 +91,7 @@ public class CalendarEvent {
 	}
 
 	/**
-	 * Metoda, która pozwala zmieniæ dateStart.
+	 * Metoda, ktÃ³ra pozwala zmieniÄ‡ dateStart.
 	 * 
 	 * @param dateStart
 	 *            obiekt klasy Date (data startu wydarzenia).
@@ -101,7 +101,7 @@ public class CalendarEvent {
 	}
 
 	/**
-	 * Metoda, która dajê dostêp do pola dateEnd.
+	 * Metoda, ktÃ³ra daje dostÄ™p do pola dateEnd.
 	 * 
 	 * @return referencja do dateEnd.
 	 */
@@ -110,17 +110,17 @@ public class CalendarEvent {
 	}
 
 	/**
-	 * Metoda, która pozwala zmieniæ dateEnd.
+	 * Metoda, ktÃ³ra pozwala zmieniÄ‡ dateEnd.
 	 * 
 	 * @param dateEnd
-	 *            obiekt klasy Date (data koñca wydarzenia).
+	 *            obiekt klasy Date (data koï¿½ca wydarzenia).
 	 */
 	public void setDateEnd(final Date dateEnd) {
 		this.dateEnd = dateEnd;
 	}
 
 	/**
-	 * Metoda, która dajê dostêp do pola dateCreated.
+	 * Metoda, ktÃ³ra daje dostÄ™p do pola dateCreated.
 	 * 
 	 * @return referencja do dateCreated.
 	 */
@@ -129,7 +129,7 @@ public class CalendarEvent {
 	}
 
 	/**
-	 * Metoda, która pozwala zmieniæ dateCreated.
+	 * Metoda, ktÃ³ra pozwala zmieniÄ‡ dateCreated.
 	 * 
 	 * @param dateCreated
 	 *            obiekt klasy Date (data utworzenia wydarzenia).
@@ -139,7 +139,7 @@ public class CalendarEvent {
 	}
 
 	/**
-	 * Metoda, która dajê dostêp do pola dateModified.
+	 * Metoda, ktÃ³ra daje dostÄ™p do pola dateModified.
 	 * 
 	 * @return referencja do dateModified.
 	 */
@@ -148,7 +148,7 @@ public class CalendarEvent {
 	}
 
 	/**
-	 * Metoda, która pozwala zmieniæ dateModified.
+	 * Metoda, ktÃ³ra pozwala zmieniÄ‡ dateModified.
 	 * 
 	 * @param dateModified
 	 *            obiekt klasy Date (data modyfikacji wydarzenia).
@@ -158,7 +158,7 @@ public class CalendarEvent {
 	}
 
 	/**
-	 * Metoda, która dajê dostêp do pola location.
+	 * Metoda, ktÃ³ra daje dostÄ™p do pola location.
 	 * 
 	 * @return referencja do location.
 	 */
@@ -167,7 +167,7 @@ public class CalendarEvent {
 	}
 
 	/**
-	 * Metoda, która pozwala zmieniæ location.
+	 * Metoda, ktÃ³ra pozwala zmieniÄ‡ location.
 	 * 
 	 * @param location
 	 *            obiekt klasy String (lokalizacja wydarzenia).
@@ -177,7 +177,7 @@ public class CalendarEvent {
 	}
 
 	/**
-	 * Metoda, która dajê dostêp do pola description.
+	 * Metoda, ktÃ³ra daje dostÄ™p do pola description.
 	 * 
 	 * @return referencja do description.
 	 */
@@ -186,7 +186,7 @@ public class CalendarEvent {
 	}
 
 	/**
-	 * Metoda, która pozwala zmieniæ description.
+	 * Metoda, ktÃ³ra pozwala zmieniÄ‡ description.
 	 * 
 	 * @param description
 	 *            obiekt klasy String (opis wydarzenia).
@@ -196,7 +196,7 @@ public class CalendarEvent {
 	}
 
 	/**
-	 * Metoda, która dajê dostêp do pola allDay.
+	 * Metoda, ktÃ³ra daje dostÄ™p do pola allDay.
 	 * 
 	 * @return referencja do allDay.
 	 */
@@ -205,10 +205,10 @@ public class CalendarEvent {
 	}
 
 	/**
-	 * Metoda, która pozwala zmieniæ allDay.
+	 * Metoda, ktÃ³ra pozwala zmieniÄ‡ allDay.
 	 * 
 	 * @param allDay
-	 *            obiekt klasy boolean (czy wydarzenia trwa ca³y dzieñ).
+	 *            obiekt klasy boolean (czy wydarzenia trwa caÅ‚y dzieÅ„).
 	 */
 	public void setAllDay(final boolean allDay) {
 		this.allDay = allDay;

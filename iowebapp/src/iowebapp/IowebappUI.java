@@ -25,7 +25,7 @@ import com.vaadin.ui.renderers.HtmlRenderer;
 import com.vaadin.ui.themes.ValoTheme;
 
 /**
- * G≥Ûwny servlet. Po otrzymaniu od uøytkownika requestu tworzy UI (User
+ * G≈Ç√≥wny servlet. Po otrzymaniu od u≈ºytkownika requestu tworzy UI (User
  * Interface).
  * 
  * @see com.vaadin.ui.UI#init(com.vaadin.server.VaadinRequest)
@@ -36,8 +36,8 @@ import com.vaadin.ui.themes.ValoTheme;
 public class IowebappUI extends UI {
 
 	/*
-	 * Wyjaúnienie nazwewnictwa: PrzyjÍta konwencja jest taka, øe 1 cz≥on
-	 * oznacza zastosowanie/znaczenie zmiennej a 2 cz≥on typ obiektu. GLay -
+	 * Wyja≈õnienie nazwewnictwa: Przyjƒôta konwencja jest taka, ≈ºe 1 cz≈Çon
+	 * oznacza zastosowanie/znaczenie zmiennej a 2 cz≈Çon typ obiektu. GLay -
 	 * GridLayout | DF - DateField HLay - HorizontalLayout | VLay -
 	 * VerticalLayout G - Grid | L - Label | TA - TextArea | TF - TextField
 	 */
@@ -50,11 +50,11 @@ public class IowebappUI extends UI {
 	}
 
 	/**
-	 * Konstruktor z nadklasy (klasa UI) przyjmujπcy jako parametr obiekt klasy
+	 * Konstruktor z nadklasy (klasa UI) przyjmujƒÖcy jako parametr obiekt klasy
 	 * Component.
 	 * 
 	 * @param content
-	 *            referencja do obiektu klasy Component (uøywany jako kontent
+	 *            referencja do obiektu klasy Component (u≈ºywany jako kontent
 	 *            UI).
 	 */
 	public IowebappUI(final Component content) {
@@ -71,7 +71,7 @@ public class IowebappUI extends UI {
 	}
 
 	/**
-	 * Tworzy UI (User Interface) uøytkownika po otrzymaniu od niego requestu.
+	 * Tworzy UI (User Interface) u≈ºytkownika po otrzymaniu od niego requestu.
 	 * 
 	 * @see com.vaadin.ui.UI#init(com.vaadin.server.VaadinRequest)
 	 */
@@ -94,6 +94,9 @@ public class IowebappUI extends UI {
 		// buttonsGLay settings
 		GridLayout buttonsGLay;
 		buttonsGLay = new GridLayout(2, 3);
+		buttonsGLay.setRowExpandRatio(0, 1);
+		buttonsGLay.setRowExpandRatio(1, 1);
+		buttonsGLay.setRowExpandRatio(2, 1);
 		mainHLay.addComponent(buttonsGLay);
 		buttonsGLay.setSizeFull();
 
@@ -108,25 +111,26 @@ public class IowebappUI extends UI {
 		eventG.setDetailsGenerator(new DetailsGenerator() {
 
 			/**
-			 * Metoda wyúwietla opis wydarzenia, a takøe przyciski s≥uøπce do
-			 * usiniÍcia, edycji i duplikowania wydarzenia.
+			 * Metoda wy≈õwietla opis wydarzenia, a tak≈ºe przyciski s≈Çu≈ºƒÖce do
+			 * usuniƒôcia, edycji i duplikowania wydarzenia.
 			 */
 			@Override
 			public Component getDetails(final RowReference rowReference) {
 				final CalendarEvent eventItem = (CalendarEvent) rowReference.getItemId();
 				Label descriptionL;
 				descriptionL = new Label(eventItem.getDescription());
-				descriptionL.setWidth(100, Unit.PIXELS);
+				descriptionL.setWidth(600, Unit.PIXELS);
 				final Button deleteB = new Button("Delete");
 				deleteB.setIcon(FontAwesome.CLOSE);
 				deleteB.addClickListener(new ClickListener() {
 
 					/**
-					 * Usuwa wydarzenie, pod ktÛrym klikamy przycisk "Delete".
+					 * Usuwa wydarzenie, pod kt√≥rym klikamy przycisk "Delete".
 					 */
 					@Override
 					public void buttonClick(final ClickEvent event) {
-						final Notification editSuccess = new Notification("Successfully deleted event!", Notification.Type.ASSISTIVE_NOTIFICATION);
+						final Notification editSuccess = new Notification("Successfully deleted event!",
+								Notification.Type.ASSISTIVE_NOTIFICATION);
 						editSuccess.setPosition(Position.TOP_CENTER);
 						editSuccess.setDelayMsec(1000);
 						editSuccess.show(Page.getCurrent());
@@ -139,11 +143,12 @@ public class IowebappUI extends UI {
 				copyB.addClickListener(new ClickListener() {
 
 					/**
-					 * Duplikuje wydarzenie, pod ktÛrym klikamy przycisk "Copy".
+					 * Duplikuje wydarzenie, pod kt√≥rym klikamy przycisk "Copy".
 					 */
 					@Override
 					public void buttonClick(final ClickEvent event) {
-						final Notification editSuccess = new Notification("Successfully copied event!", Notification.Type.ASSISTIVE_NOTIFICATION);
+						final Notification editSuccess = new Notification("Successfully copied event!",
+								Notification.Type.ASSISTIVE_NOTIFICATION);
 						editSuccess.setPosition(Position.TOP_CENTER);
 						editSuccess.setDelayMsec(1000);
 						editSuccess.show(Page.getCurrent());
@@ -158,7 +163,7 @@ public class IowebappUI extends UI {
 				editB.addClickListener(new ClickListener() {
 
 					/**
-					 * Daje moøliwoúÊ edycji wydarzenia, pod ktÛrym klikamy
+					 * Daje mo≈ºliwo≈õƒá edycji wydarzenia, pod kt√≥rym klikamy
 					 * przycisk "Edit".
 					 */
 					@Override
@@ -180,8 +185,8 @@ public class IowebappUI extends UI {
 		eventG.addItemClickListener(new ItemClickListener() {
 
 			/**
-			 * W przypadku gdy uøytkownik w wydarzenie kliknie dwa razy metoda
-			 * powoduje zmianÍ widocznoúci szczegÛ≥Ûw.
+			 * W przypadku gdy u≈ºytkownik w wydarzenie kliknie dwa razy metoda
+			 * powoduje zmianƒô widoczno≈õci szczegu≈Ç√≥w.
 			 */
 			@Override
 			public void itemClick(final ItemClickEvent event) {
@@ -225,7 +230,7 @@ public class IowebappUI extends UI {
 		newEventB.addClickListener(new ClickListener() {
 
 			/**
-			 * Metoda tworzy okno w ktÛrym uøytkownik wype≥nia pola aby utworzyÊ
+			 * Metoda tworzy okno w kt√≥rym u≈ºytkownik wype≈Çnia pola aby utworzyƒá
 			 * nowe wydarzenie (obiekt klasy NewEventWindow).
 			 */
 			@Override
@@ -245,16 +250,17 @@ public class IowebappUI extends UI {
 		deleteAllB.addClickListener(new ClickListener() {
 
 			/**
-			 * Metoda tworzy okno w ktÛrym uøytknownik podejmuje decyzjÍ czy na
-			 * pewno chce usunπÊ wszystkie wydarzenia (obiekt klasy
+			 * Metoda tworzy okno w kt√≥rym u`zytknownik podejmuje decyzjƒô czy na
+			 * pewno chce usunƒÖƒá wszystkie wydarzenia (obiekt klasy
 			 * DeleteAllWindow).
 			 */
 			@Override
 			public void buttonClick(final ClickEvent event) {
-				final Notification deleteError = new Notification("There're no events!", Notification.Type.ERROR_MESSAGE);
+				final Notification deleteError = new Notification("There're no events!",
+						Notification.Type.ERROR_MESSAGE);
 				deleteError.setPosition(Position.TOP_CENTER);
 				deleteError.setDelayMsec(1000);
-				if (eventsContainer.size() >= 1) {
+				if (eventsContainer.size() >= Integer.valueOf(1)) {
 					addWindow(new DeleteAllWindow(eventsContainer));
 					return;
 				}
@@ -262,13 +268,24 @@ public class IowebappUI extends UI {
 			}
 		});
 
-		// loadPcB settings
-		Button loadPcB;
-		loadPcB = new Button("LOAD FROM PC");
+		final Button loadPcB = new Button("LOAD FROM PC");
 		loadPcB.setStyleName(ValoTheme.BUTTON_SMALL, true);
 		loadPcB.setDescription("Click to load your events from your computer!");
-		loadPcB.setImmediate(true);
 		loadPcB.setHeight(70, Unit.PERCENTAGE);
+		loadPcB.setImmediate(true);
+		loadPcB.addClickListener(new ClickListener() {
+
+			/**
+			 * Klikniƒôcie na przycisk powoduje utworzenie okna UploadWindow,
+			 * kt√≥re s≈Çu≈ºy do uploadowania.
+			 */
+			@Override
+			public void buttonClick(final ClickEvent event) {
+				addWindow(new UploadWindow(eventsContainer));
+
+			}
+
+		});
 
 		// loadWebB settings
 		Button loadWebB;
@@ -277,6 +294,16 @@ public class IowebappUI extends UI {
 		loadWebB.setDescription("Click to load your events from a website!");
 		loadWebB.setImmediate(true);
 		loadWebB.setHeight(70, Unit.PERCENTAGE);
+		loadWebB.addClickListener(new ClickListener() {
+
+			/**
+			 * Metoda tworzy okno w kt√≥rym u≈ºytkownik podaje link url.
+			 */
+			@Override
+			public void buttonClick(final ClickEvent event) {
+				addWindow(new LoadFromWebWindow(eventsContainer));
+			}
+		});
 
 		// genIcalB settings
 		Button genIcalB;
@@ -296,6 +323,9 @@ public class IowebappUI extends UI {
 		genCsvB.setDescription("Click to export your events to CSV format.");
 		genCsvB.setImmediate(true);
 		genCsvB.setHeight(70, Unit.PERCENTAGE);
+		StreamResource csvFile = downloadCsvFile(eventsContainer);
+		FileDownloader csvDownloader = new FileDownloader(csvFile);
+		csvDownloader.extend(genCsvB);
 
 		// adding buttons to buttonsGLay
 		buttonsGLay.addComponent(newEventB, 0, 0);
@@ -321,6 +351,10 @@ public class IowebappUI extends UI {
 
 	private StreamResource createResource(final BeanItemContainer<CalendarEvent> eventsContainer) {
 		return new StreamResource(new IcalGenerator(eventsContainer), "plik.ICS");
+	}
+	
+	private StreamResource downloadCsvFile(final BeanItemContainer<CalendarEvent> eventsContainer) {
+		 return new StreamResource(new CsvGenerator(eventsContainer), "data.CSV");
 	}
 
 }

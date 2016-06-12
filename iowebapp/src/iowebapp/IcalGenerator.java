@@ -8,22 +8,23 @@ import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.server.StreamResource.StreamSource;
 
 /**
- * Klasa która konwertuje dane z tabelki do formatu iCal i tworzy strumieñ
- * wejœciowy.
+ * Klasa ktÃ³ra konwertuje dane z tabelki do formatu iCal i tworzy strumieÅ„
+ * wejÅ›ciowy.
  * 
  * @author Krzysztof Perchlicki
  *
  */
+@SuppressWarnings("serial")
 class IcalGenerator implements StreamSource {
 
 	/**
-	 * Tablica przechowuj¹ca referencje do wszystkich wydarzeñ
+	 * Tablica przechowujÄ…ca referencje do wszystkich wydarzeÅ„
 	 * (CalendarEvent).
 	 */
 	private final BeanItemContainer<CalendarEvent> eventsContainer;
 
 	/**
-	 * Konstruktor przyjmuj¹cy eventsContainer.
+	 * Konstruktor przyjmujÄ…cy eventsContainer.
 	 * 
 	 * @param eventsContainer
 	 */
@@ -33,8 +34,8 @@ class IcalGenerator implements StreamSource {
 	}
 
 	/**
-	 * Metoda która konwertuje dane z tabeli do formatu iCal i tworzy
-	 * strumieñ wejœciowy.
+	 * Metoda ktÃ³ra konwertuje dane z tabeli do formatu iCal i tworzy
+	 * strumieÅ„ wejÅ›ciowy.
 	 */
 	@Override
 	public InputStream getStream() {
@@ -42,7 +43,7 @@ class IcalGenerator implements StreamSource {
 		final Date dateStamp = new Date();
 		icalFile.append("BEGIN:VCALENDAR\nPRODID:IOWEBAPP_PROJECT_TEAM");
 		for (int i = 0; i < eventsContainer.size(); i++) {
-			final CalendarEvent event = eventsContainer.getItem(eventsContainer.getIdByIndex(i)).getBean();
+			final CalendarEvent event = eventsContainer.getIdByIndex(i);
 			icalFile.append("\nBEGIN:VEVENT\nDTSTART");
 			icalFile.append(dateConvert(event.getDateStart(), event.isAllDay()));
 			icalFile.append("\nDTEND");
@@ -74,14 +75,15 @@ class IcalGenerator implements StreamSource {
 	 * @return dataIcal
 	 */
 	@SuppressWarnings("deprecation")
-	String dateConvert(final Date date, final boolean checked) {
+	public String dateConvert(final Date date, final boolean checked) {
 		final int year = date.getYear() + 1900;
 		final int month = date.getMonth() + 1;
 		final int day = date.getDate();
-		final int hours = date.getHours();
-		final int minutes = date.getMinutes();
-		final int seconds = date.getSeconds();
+		
 		if (!checked) {
+			final int hours = date.getHours();
+			final int minutes = date.getMinutes();
+			final int seconds = date.getSeconds();
 			return String.format(":%d%02d%02dT%02d%02d%02d", year, month, day, hours, minutes, seconds);
 		}
 		return String.format(";VALUE=DATE:%d%02d%02d", year, month, day);

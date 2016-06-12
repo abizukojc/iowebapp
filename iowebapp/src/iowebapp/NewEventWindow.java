@@ -27,8 +27,8 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.Window;
 
 /**
- * Klasa NewEventWindow dziedzicz¹ca po klasie Window. Wyœwietla okno w którym
- * u¿ytkownik podaje tytu³, datê startu, datê koñca, lokalizacjê oraz opis
+ * Klasa NewEventWindow dziedziczÄ…ca po klasie Window. WyÅ›wietla okno w ktÃ³rym
+ * uÅ¼ytkownik podaje tytuÅ‚, datÄ™ startu, datÄ™ koÅ„ca, lokalizacjÄ™ oraz opis
  * wydarzenia.
  *
  * @author Krzysztof Perchlicki
@@ -38,8 +38,8 @@ public class NewEventWindow extends Window {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Konstruktor tworzy okno, które s³u¿y do tworzenia i edycji wydarzeñ. Okno
-	 * potrafi sygnalizowaæ b³êdy.
+	 * Konstruktor tworzy okno, ktÃ³re sÅ‚uÅ¼y do tworzenia i edycji wydarzeÅ„. Okno
+	 * potrafi sygnalizowaÄ‡ bÅ‚Ä™dy.
 	 * 
 	 * @param eventsContainer
 	 * @param eventG
@@ -155,10 +155,10 @@ public class NewEventWindow extends Window {
 		allDayCh.addValueChangeListener(new ValueChangeListener() {
 
 			/**
-			 * W przypadku gdy uzytkownik zaznaczy checkboxa data koñca staje
+			 * W przypadku gdy uzytkownik zaznaczy checkboxa data koÅ„ca staje
 			 * sie taka jak data poczatku, znika informacja o godzinach i
-			 * mo¿liwoœæ edycji dateEnd. Gdy natomiast odznaczy checkboxa to
-			 * wracaja minuty i mo¿liwoœæ edycji dateEnd.
+			 * moÅ¼liwoÅ›Ä‡ edycji dateEnd. Gdy natomiast odznaczy checkboxa to
+			 * wracaja minuty i moÅ¼liwoÅ›Ä‡ edycji dateEnd.
 			 */
 			@Override
 			public void valueChange(final ValueChangeEvent event) {
@@ -217,14 +217,14 @@ public class NewEventWindow extends Window {
 			 */
 			Date dateStartD;
 			/**
-			 * Pole przechowujace date koñca wydarzenia.
+			 * Pole przechowujace date koÅ„ca wydarzenia.
 			 */
 			Date dateEndD;
 
 			/**
-			 * Klikniêcie na przycisk powoduje utworzenie nowego wydarzenia
-			 * (dodane jest ono do tablicy eventsContainer). Obowi¹zkowe pola s¹
-			 * sprawdzane i wyœwietlane s¹ odpowiednie komunikaty. Jeœli
+			 * KlikniÄ™cie na przycisk powoduje utworzenie nowego wydarzenia
+			 * (dodane jest ono do tablicy eventsContainer). ObowiÄ…zkowe pola sÄ…
+			 * sprawdzane i wyÅ›wietlane sÄ… odpowiednie komunikaty. JeÅ›li
 			 * istnieje referencja do wiersza z eventsContainer to nastepuje
 			 * edycja wydarzenia.
 			 */
@@ -254,9 +254,9 @@ public class NewEventWindow extends Window {
 				if (dateStartD != null && dateEndD != null && dateStartD.after(dateEndD)) {
 					dateEndDF.setComponentError(new UserError("End date must be later than start date"));
 				}
-				dateModified = new Date();
+				dateModified=new Date();
 				if (!errorCondition) {
-					if (ref == null) {
+					if (ref == null) {					
 						dateCreated = new Date(dateModified.getTime());
 						eventsContainer.addBean(new CalendarEvent(titleTF.getValue(), dateStartDF.getValue(),
 								dateEndDF.getValue(), dateCreated, dateModified, locationTF.getValue(),
