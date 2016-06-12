@@ -46,6 +46,7 @@ public class NewEventWindow extends Window {
 	 * @param ref
 	 */
 	@SuppressWarnings({ "serial", "deprecation" })
+	public
 	NewEventWindow(final BeanItemContainer<CalendarEvent> eventsContainer, final Grid eventG, final CalendarEvent ref) {
 		super("New Event");
 
