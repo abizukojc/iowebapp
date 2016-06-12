@@ -1,7 +1,19 @@
+buildscript {
+	 repositories {
+	  	jcenter()
+	 }
+	 
+	 dependencies {
+	 	classpath 'com.bmuschko:gradle-tomcat-plugin:2.0'
+	 }
+}
+
 apply plugin: 'java'
 apply plugin: 'war'
 apply plugin: 'eclipse-wtp'
+apply plugin: 'com.bmuschko.tomcat'
 
+sourceCompatibility = 1.8
 webAppDirName = 'WebContent'
 
 repositories {
@@ -31,17 +43,30 @@ dependencies {
 	compile 'com.vaadin:vaadin-themes:7.6.4'
 	compile 'com.vaadin:vaadin-client-compiled:7.6.4'
 	compile 'com.vaadin:vaadin-client:7.6.4'
-	compile group: 'eu.hurion.vaadin.heroku', name: 'vaadin-for-heroku', version: '1.0'
-	compile 'javax.servlet:javax.servlet-api:3.1.0'
+//	compile group: 'eu.hurion.vaadin.heroku', name: 'vaadin-for-heroku', version: '1.0'
+	
+	providedCompile 'javax.servlet:javax.servlet-api:3.1.0'
+	
 	compile 'junit:junit:4.12'
     compile group: 'org.jsoup', name: 'jsoup', version: '1.9.1'
 
 	compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.21'
 	compile group: 'ch.qos.logback', name: 'logback-core', version: '1.1.7'
-	compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.1.7'	
-
+	compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.1.7'
+	
+	def tomcatVersion = '7.0.57'
+	
+	 tomcat "org.apache.tomcat.embed:tomcat-embed-core:${tomcatVersion}",
+	            "org.apache.tomcat.embed:tomcat-embed-logging-juli:${tomcatVersion}"
+	 
+	 tomcat("org.apache.tomcat.embed:tomcat-embed-jasper:${tomcatVersion}") {
+	        exclude group: 'org.eclipse.jdt.core.compiler', module: 'ecj'
+	    }       
 }
 
+	tomcatRun.contextPath = '/'
+	tomcatRunWar.contextPath = '/'
+	
 task wrapper(type: Wrapper) {
     gradleVersion = '2.12'
 }
