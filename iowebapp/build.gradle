@@ -30,7 +30,7 @@ dependencies {
 	compile 'com.vaadin:vaadin-client:7.6.4'
 	compile 'javax.servlet:javax.servlet-api:3.1.0'
 	
-	compileTest 'junit:junit:4.12'
+	compile 'junit:junit:4.12'
 	
     compile group: 'org.jsoup', name: 'jsoup', version: '1.9.1'
 	compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.21'
