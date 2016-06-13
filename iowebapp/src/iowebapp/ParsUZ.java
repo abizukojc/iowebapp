@@ -9,19 +9,34 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import com.google.gwt.user.client.Event;
-
 /**
- * Klasa, która parsuje dane z planu UZ.
+ * Klasa, która zapisuje dane z planu UZ.
  * 
  * @author Micha³ Bielecki
  */
 public class ParsUZ {
 	
+	/** Tablica przechowuj¹ca informacje czy dzien istnieje w planie. Wartosc 1 = istnieje. */
 	private int[] dayIndex = new int[7];
-	private int indexA, indexB, elementSize;
+	
+	/** Indeks dnia w kodzie html */
+	private int indexA;
+	
+	/** Indeks nastepnego dnia w kodzie html */
+	private int indexB;
+	
+	/** Zmienna, ktora przechowuje rozmiar elements */
+	private int elementSize;
+	
+	/** Lista przechowuj¹ca wydarzenia */
 	private List<CalendarEvent> events = new ArrayList<CalendarEvent>();
 	
+	/**
+	 * Kontruktor klasy ParsUZ. Generuje liste wydarzen.
+	 * 
+	 * @param urlUZ
+	 * @throws IOException
+	 */
 	public ParsUZ(String urlUZ) throws IOException
 	{
 		Document doc = Jsoup.connect(urlUZ).get();
@@ -31,6 +46,12 @@ public class ParsUZ {
 		saveAllData(dayIndex, elements);
 	}
 
+	/**
+	 * Metoda sprawdza, ktore dni istnieja w planie. Jezeli dzien jest w planie wstawia wartosc 1 to tablicy.
+	 * 
+	 * @param elements
+	 * @param dayIndex
+	 */
 	public void dayIndex(Elements elements, int dayIndex[])
 	{
 		for(int i=0; i<dayIndex.length; i++)
@@ -72,6 +93,16 @@ public class ParsUZ {
 		}
 	}
 	
+	/**
+	 * Metoda zapisuje dane z 1 konkretnego dnia.
+	 * 
+	 * @param day
+	 * @param dayIndex
+	 * @param elements
+	 * @param a indeks dnia
+	 * @param b indeks nastepnego dnia
+	 * @param events
+	 */
 	public void getDataFromUZ(CalendarEvent day[], int dayIndex[], Elements elements, int a, int b, List<CalendarEvent> events)
 	{
 		int counter=1;
@@ -131,6 +162,13 @@ public class ParsUZ {
 		}
 	}
 	
+	/**
+	 * Metoda znajduje odpowiednie indeksy dni.
+	 * 
+	 * @param dayIndex
+	 * @param index
+	 * @param elements
+	 */
 	public void findIndex(int dayIndex[], int index, Elements elements)
 	{
 		int guard=0;
@@ -152,18 +190,12 @@ public class ParsUZ {
 		}
 	}
 	
-	public void showEvent(CalendarEvent event)
-	{
-			System.out.println(event.getTitle());
-			System.out.println(event.getLocation());
-			System.out.println(event.getDescription());
-			System.out.println("Data rozpoczecia: " + event.getDateStart());
-			System.out.println("Data zakoñczenia: " + event.getDateEnd());
-			System.out.println("Data utworzenia: " + event.getDateCreated());
-			System.out.println("Data modyfikacji: " + event.getDateModified());
-			System.out.println();
-	}
-	
+	/**
+	 * Metoda zapisuje dane z ka¿dego dnia.
+	 * 
+	 * @param dayIndex
+	 * @param elements
+	 */
 	public void saveAllData(int dayIndex[], Elements elements)
 	{
 		for(int i=0; i<7; i++)
@@ -177,26 +209,51 @@ public class ParsUZ {
 		}
 	}
 
+	/**
+	 * Metoda, ktora daje dostep do pola IndexA
+	 * @return
+	 */
 	public int getIndexA() {
 		return indexA;
 	}
 
+	/**
+	 * Metoda, ktora pozwala zmieniac pole indexA.
+	 * @param indexA
+	 */
 	public void setIndexA(int indexA) {
 		this.indexA = indexA;
 	}
 
+	/**
+	 * Metoda, ktora daje dostep do pola IndexB.
+	 * @return
+	 */
 	public int getIndexB() {
 		return indexB;
 	}
 
+	/**
+	 * Metoda, ktora pozwala na zmiane pola indexB
+	 * @param indexB
+	 */
 	public void setIndexB(int indexB) {
 		this.indexB = indexB;
 	}
 
+	/**
+	 * Metoda, ktora daje dostep do pola elementSize.
+	 * @return
+	 */
 	public int getElementSize() {
 		return elementSize;
 	}
 
+	/**
+	 * Metoda, ktora daje dostep do listy wydarzen.
+	 * 
+	 * @return
+	 */
 	public List<CalendarEvent> getEvents() {
 		return events;
 	}	
