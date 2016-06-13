@@ -15,7 +15,6 @@ import java.io.*;
 import java.util.Date;
 import java.util.Locale;
 
-
 /**
  * Okno zawiera w sobie pole tekstowe, w którym umieszczana jest nazwa wybranego
  * pliku ics. Ma w sobie także przycisk otwierający okno w którym użytkownik
@@ -49,7 +48,6 @@ public class UploadWindow extends Window {
 	public UploadWindow(final BeanItemContainer<CalendarEvent> eventsContainer) {
 		// window settings
 		super();
-
 		this.eventsContainer = eventsContainer;
 		final Toolkit size = Toolkit.getDefaultToolkit();
 		final String tempPath = getClass().getResource("CalendarEvent.class").getPath();
@@ -83,13 +81,13 @@ public class UploadWindow extends Window {
 			public OutputStream receiveUpload(final String filename, final String mimeType) {
 
 				try {
-					path = tempPath.substring(0, tempPath.length() - 19);
+					path = tempPath.substring(0, tempPath.length() - "CalendarEvent.class".length());
 					final String textFieldValue = pathTF.getValue();
 					if (!("".equals(textFieldValue))) {
 						new File(path + pathTF.getValue()).delete();
 					}
 					final String extension = filename.substring(filename.length() - 4, filename.length());
-					if (!(".ics".equals(extension) || ".ICS".equals(extension))) {
+					if (!".ICS".equals(extension.toUpperCase(Locale.ENGLISH))) {
 						final Notification badExtensionError = new Notification("You need to choose .ics file!",
 								Notification.Type.ERROR_MESSAGE);
 						badExtensionError.setPosition(Position.TOP_CENTER);
@@ -146,10 +144,13 @@ public class UploadWindow extends Window {
 		final Button addButton = new Button("Confirm Upload");
 		addButton.setImmediate(true);
 		addButton.setSizeUndefined();
-		addButton.addClickListener(/**
-									 * @author Krzysztof
-									 *
-									 */
+		addButton.addClickListener(
+				/**
+				* W przypadku kliknięcia na przycisk Confirm, zostają
+				* zaimportowane wydarzenia z wybranego pliku. 
+				* 
+				* @author Krzysztof Perchlicki
+				*/
 				new ClickListener() {
 					/**
 					 * 
@@ -279,7 +280,7 @@ public class UploadWindow extends Window {
 			@Override
 			public void windowClose(final CloseEvent event) {
 				final String textFieldValue = pathTF.getValue();
-				if ("".equals(textFieldValue)) {
+				if (!"".equals(textFieldValue)) {
 					new File(path + pathTF.getValue()).delete();
 				}
 
