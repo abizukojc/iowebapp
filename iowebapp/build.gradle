@@ -38,6 +38,19 @@ dependencies {
 	compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.1.7'	
 }
 
+test {
+    reports {
+        junitXml.enabled = false
+        html.enabled = true
+    }              
+}
+
+ task testSuite(type: Test) {
+	include 'bin/testiowebapp/AllTests.class'
+	reports.junitXml.destination = "$buildDir/test-results/SuiteOne"
+    reports.html.destination = "$buildDir/test-results/SuiteOne"
+}
+
 task wrapper(type: Wrapper) {
     gradleVersion = '2.12'
 }
