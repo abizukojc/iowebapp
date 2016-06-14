@@ -49,9 +49,10 @@ public class UploadWindow extends Window {
 		// window settings
 		super();
 		this.eventsContainer = eventsContainer;
-		final Toolkit size = Toolkit.getDefaultToolkit();
+//		final Toolkit size = Toolkit.getDefaultToolkit();
 		final String tempPath = getClass().getResource("CalendarEvent.class").getPath();
-		setPosition(2 * size.getScreenSize().width / 5, size.getScreenSize().height / 6);
+//		setPosition(2 * size.getScreenSize().width / 5, size.getScreenSize().height / 6);
+		setPosition(768,180);
 		setWidth("330px");
 		setHeight("150px");
 		setClosable(true);

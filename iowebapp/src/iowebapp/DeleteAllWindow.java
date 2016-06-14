@@ -38,8 +38,9 @@ public class DeleteAllWindow extends Window {
 	public DeleteAllWindow(final BeanItemContainer<CalendarEvent> eventsContainer) {
 		// window settings
 		super();
-		final Toolkit size = Toolkit.getDefaultToolkit();
-		setPosition(2 * size.getScreenSize().width / 5, size.getScreenSize().height / 6);
+//		final Toolkit size = Toolkit.getDefaultToolkit();
+//		setPosition(2 * size.getScreenSize().width / 5, size.getScreenSize().height / 6);
+		setPosition(768,180);
 		setWidth("330px");
 		setHeight("100px");
 		setClosable(false);

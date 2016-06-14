@@ -37,8 +37,9 @@ public class LoadFromWebWindow extends Window {
 		// window settings
 		setWidth("300px");
 		setHeight("180px");
-		final Toolkit size = Toolkit.getDefaultToolkit();
-		setPosition(2 * size.getScreenSize().width / 5, size.getScreenSize().height / 6);
+//		final Toolkit size = Toolkit.getDefaultToolkit();
+//		setPosition(2 * size.getScreenSize().width / 5, size.getScreenSize().height / 6);
+		setPosition(768,180);
 		setResizable(false);
 		
 		// buttonsGLay settings
