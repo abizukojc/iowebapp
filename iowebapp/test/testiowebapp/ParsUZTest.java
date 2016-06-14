@@ -22,8 +22,8 @@ public class ParsUZTest {
 			ParsUZ parsUZ2 = new ParsUZ("http://plan.uz.zgora.pl/grupy_plan.php?pId_Obiekt=16669");
 			assertNotNull(parsUZ);
 			assertEquals(parsUZ, parsUZ);
-			assertSame(parsUZ2, parsUZ);
-			assertNotSame(parsUZ, parsUZ);
+			assertNotSame(parsUZ2, parsUZ);
+			assertSame(parsUZ, parsUZ);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
